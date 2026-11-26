@@ -315,3 +315,7 @@ The original new Python project is released under the [MIT License](LICENSE). Re
 ## Experimental quantum transport (EHT-NEGF)
 
 See the [graphene transport benchmark](examples/transport/README.md) for the standalone nonorthogonal NEGF module, frozen BandFit parameters, archived comparison with TranSIESTA, references and local run instructions. No automatic calculations are triggered.
+
+## Reproduce every example
+
+Start with the [complete runnable tutorial index](examples/tutorials/README.md): molecular and periodic inputs, spin/SOC, all six BandFit models, fifteen independent-device examples, PBS scripts and archived numerical references.

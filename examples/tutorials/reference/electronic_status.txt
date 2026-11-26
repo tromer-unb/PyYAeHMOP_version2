@@ -1,0 +1,15 @@
+pyaehmop/examples_friendly/diamond_ase.job exit=0
+pyaehmop/examples_friendly/diamond_cif.job exit=0
+pyaehmop/examples_friendly/diamond_poscar.job exit=0
+pyaehmop/examples_friendly/diamond_reference.job exit=0
+pyaehmop/examples_friendly/water_charges.job exit=0
+pyaehmop/examples_friendly/water_custom_parameters.job exit=0
+pyaehmop/examples_friendly/water_default_parameters.job exit=0
+pyaehmop/examples_friendly/water_full.job exit=0
+pyaehmop/examples_friendly/xef4_original.job exit=0
+pyaehmop/SPIN_TEST/examples/C_atom_both.spin exit=0
+pyaehmop/SPIN_TEST/examples/Fe_wire_both.spin exit=0
+pyaehmop/SPIN_TEST/examples/Fe_wire_external_parameters.spin exit=0
+pyaehmop/SPIN_TEST/examples/Fe_wire_soc.spin exit=0
+pyaehmop/SPIN_TEST/examples/Fe_wire_soc_exaggerated.spin exit=0
+pyaehmop/SPIN_TEST/examples/Fe_wire_spin.spin exit=0

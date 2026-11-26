@@ -1,0 +1,93 @@
+{
+  "graphene_mos2_graphene": {
+    "T_at_reference": 0.001060468167658099,
+    "T_max": 0.4298701593221153,
+    "I_at_2V_uA": 0.8332494477011541,
+    "G_at_reference_uS": 0.08216604638699503,
+    "spin": false,
+    "soc": false,
+    "atom_counts": [
+      32,
+      50,
+      32
+    ]
+  },
+  "graphene_x": {
+    "T_at_reference": 0.13332970088637702,
+    "T_max": 1.199946027180213,
+    "I_at_2V_uA": 40.66550355532963,
+    "G_at_reference_uS": 10.330507526677819,
+    "spin": false,
+    "soc": false,
+    "atom_counts": [
+      12,
+      12,
+      12
+    ]
+  },
+  "nanoribbon": {
+    "T_at_reference": 0.9998317169650596,
+    "T_max": 2.9797729524222363,
+    "I_at_2V_uA": 180.05393984953406,
+    "G_at_reference_uS": 77.46787856608847,
+    "spin": false,
+    "soc": false,
+    "atom_counts": [
+      16,
+      16,
+      16
+    ]
+  },
+  "potential_barrier": {
+    "T_at_reference": 0.13275881927430638,
+    "T_max": 0.5205761660779417,
+    "I_at_2V_uA": 21.789053036350165,
+    "G_at_reference_uS": 10.286275095710591,
+    "spin": false,
+    "soc": false,
+    "atom_counts": [
+      8,
+      8,
+      8
+    ]
+  },
+  "spin_antiparallel": {
+    "T_at_reference": 0.2663030917319123,
+    "T_max": 1.0545818313727218,
+    "I_at_2V_uA": 20.659715020400526,
+    "G_at_reference_uS": 10.316703912275791,
+    "spin": true,
+    "soc": false,
+    "atom_counts": [
+      8,
+      8,
+      8
+    ]
+  },
+  "spin_parallel": {
+    "T_at_reference": 0.2666582909405529,
+    "T_max": 1.3332551544861218,
+    "I_at_2V_uA": 26.101016350242197,
+    "G_at_reference_uS": 10.330464492528868,
+    "spin": true,
+    "soc": false,
+    "atom_counts": [
+      8,
+      8,
+      8
+    ]
+  },
+  "wide_vacancy": {
+    "T_at_reference": 4.2490483918432625e-10,
+    "T_max": 1.9914134282813198,
+    "I_at_2V_uA": 41.76028050174232,
+    "G_at_reference_uS": 3.2922016700961534e-08,
+    "spin": false,
+    "soc": false,
+    "atom_counts": [
+      32,
+      31,
+      32
+    ]
+  }
+}

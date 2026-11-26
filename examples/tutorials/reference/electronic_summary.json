@@ -1,0 +1,203 @@
+{
+  "friendly_diamond_ase": {
+    "type": "periodic",
+    "title": "diamond_primitive",
+    "atoms": 2,
+    "orbitals": 8,
+    "electrons": 8.0,
+    "warnings": []
+  },
+  "friendly_diamond_cif": {
+    "type": "periodic",
+    "title": "diamond_primitive",
+    "atoms": 2,
+    "orbitals": 8,
+    "electrons": 8.0,
+    "band_path_gap_eV": 4.960524661951488,
+    "minimum_direct_gap_eV": 4.960524661951488,
+    "vbm_eV": -9.370505798939249,
+    "cbm_eV": -4.409981136987761,
+    "warnings": [
+      "Custom EHT parameters: C"
+    ]
+  },
+  "friendly_diamond_original": {
+    "type": "periodic",
+    "title": "diamond",
+    "atoms": 2,
+    "orbitals": 8,
+    "electrons": 8.0,
+    "band_path_gap_eV": 4.960524658758345,
+    "minimum_direct_gap_eV": 4.960524658758345,
+    "vbm_eV": -9.37050580441886,
+    "cbm_eV": -4.409981145660515,
+    "warnings": []
+  },
+  "friendly_diamond_poscar": {
+    "type": "periodic",
+    "title": "diamond_primitive",
+    "atoms": 2,
+    "orbitals": 8,
+    "electrons": 8.0,
+    "warnings": []
+  },
+  "friendly_water_charges": {
+    "type": "molecule",
+    "title": "Water molecule (OH 0.9572 A; HOH angle 104.52 degrees)",
+    "atoms": 3,
+    "orbitals": 6,
+    "electrons": 8.0,
+    "mulliken_charges": [
+      -0.8313538758279062,
+      0.4156769379141103,
+      0.415676937913794
+    ],
+    "warnings": []
+  },
+  "friendly_water_full": {
+    "type": "molecule",
+    "title": "Water molecule (OH 0.9572 A; HOH angle 104.52 degrees)",
+    "atoms": 3,
+    "orbitals": 6,
+    "electrons": 8.0,
+    "electronic_energy_eV": -162.54176354922865,
+    "homo_eV": -14.800000000000011,
+    "lumo_eV": -0.18803020854076843,
+    "gap_homo_lumo_eV": 14.611969791459243,
+    "mulliken_charges": [
+      -0.8313538758279062,
+      0.4156769379141103,
+      0.415676937913794
+    ],
+    "warnings": []
+  },
+  "friendly_xef4": {
+    "type": "molecule",
+    "title": "[XeF4]",
+    "atoms": 5,
+    "orbitals": 20,
+    "electrons": 36.0,
+    "electronic_energy_eV": -812.3128853808132,
+    "homo_eV": -11.34430567351915,
+    "lumo_eV": 0.835790337883921,
+    "gap_homo_lumo_eV": 12.180096011403071,
+    "mulliken_charges": [
+      3.4052398731681173,
+      -0.8513099682920284,
+      -0.8513099682920284,
+      -0.8513099682920267,
+      -0.8513099682920275
+    ],
+    "warnings": [
+      "MO PRINT is not implemented; full coefficients are available in JSON"
+    ]
+  },
+  "water_custom_parameters": {
+    "type": "molecule",
+    "title": "Water molecule (OH 0.9572 A; HOH angle 104.52 degrees)",
+    "atoms": 3,
+    "orbitals": 6,
+    "electrons": 8.0,
+    "electronic_energy_eV": -162.54176354922865,
+    "homo_eV": -14.800000000000011,
+    "lumo_eV": -0.18803020854076843,
+    "gap_homo_lumo_eV": 14.611969791459243,
+    "mulliken_charges": [
+      -0.8313538758279062,
+      0.4156769379141103,
+      0.415676937913794
+    ],
+    "warnings": [
+      "Custom EHT parameters: H, O"
+    ]
+  },
+  "water_default_parameters": {
+    "type": "molecule",
+    "title": "Water molecule (OH 0.9572 A; HOH angle 104.52 degrees)",
+    "atoms": 3,
+    "orbitals": 6,
+    "electrons": 8.0,
+    "electronic_energy_eV": -162.54176354922865,
+    "homo_eV": -14.800000000000011,
+    "lumo_eV": -0.18803020854076843,
+    "gap_homo_lumo_eV": 14.611969791459243,
+    "mulliken_charges": [
+      -0.8313538758279062,
+      0.4156769379141103,
+      0.415676937913794
+    ],
+    "warnings": []
+  },
+  "C_atom_both": {
+    "mode": "spin+soc",
+    "converged": true,
+    "iterations": 27,
+    "final_residual": 2.8784479244592376e-09,
+    "fermi_eV": -12.580851622078995,
+    "total_moment_muB": 1.999580849108276,
+    "soc_max_element_eV": 0.020000000000000268,
+    "spin": true,
+    "soc": true,
+    "n_orbitals": 4
+  },
+  "Fe_wire_both": {
+    "mode": "spin+soc",
+    "converged": true,
+    "iterations": 34,
+    "final_residual": 4.189691393818862e-07,
+    "fermi_eV": -11.571400064756244,
+    "total_moment_muB": 1.9968720580023693,
+    "soc_max_element_eV": 0.0600000000000001,
+    "spin": true,
+    "soc": true,
+    "n_orbitals": 9
+  },
+  "Fe_wire_external_parameters": {
+    "mode": "spin+soc",
+    "converged": true,
+    "iterations": 34,
+    "final_residual": 4.189691393818862e-07,
+    "fermi_eV": -11.571400064756244,
+    "total_moment_muB": 1.9968720580023693,
+    "soc_max_element_eV": 0.0600000000000001,
+    "spin": true,
+    "soc": true,
+    "n_orbitals": 9
+  },
+  "Fe_wire_soc": {
+    "mode": "soc",
+    "converged": true,
+    "iterations": 1,
+    "final_residual": 3.6637359812630166e-15,
+    "fermi_eV": -12.08574127004989,
+    "total_moment_muB": -1.1603565330808863e-14,
+    "soc_max_element_eV": 0.0600000000000001,
+    "spin": false,
+    "soc": true,
+    "n_orbitals": 9
+  },
+  "Fe_wire_soc_exaggerated": {
+    "mode": "spin+soc",
+    "converged": true,
+    "iterations": 37,
+    "final_residual": 9.475877402742583e-07,
+    "fermi_eV": -11.517377164407737,
+    "total_moment_muB": 1.9287966523953763,
+    "soc_max_element_eV": 0.30000000000000054,
+    "spin": true,
+    "soc": true,
+    "n_orbitals": 9
+  },
+  "Fe_wire_spin": {
+    "mode": "spin",
+    "converged": true,
+    "iterations": 34,
+    "final_residual": 3.8049257922168067e-07,
+    "fermi_eV": -11.574194028454983,
+    "total_moment_muB": 2.0000555165166447,
+    "soc_max_element_eV": 0.0,
+    "spin": true,
+    "soc": false,
+    "n_orbitals": 9
+  }
+}

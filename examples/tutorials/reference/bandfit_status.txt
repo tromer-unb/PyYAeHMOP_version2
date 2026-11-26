@@ -1,0 +1,6 @@
+examples/tutorials/bandfit/pdz7_2B_smoke.transport.job exit=0
+examples/tutorials/bandfit/pdz7_4B_smoke.transport.job exit=0
+examples/tutorials/bandfit/pdz7_6B_smoke.transport.job exit=0
+examples/tutorials/bandfit/shared_2B_smoke.transport.job exit=0
+examples/tutorials/bandfit/shared_4B_smoke.transport.job exit=0
+examples/tutorials/bandfit/shared_6B_smoke.transport.job exit=0

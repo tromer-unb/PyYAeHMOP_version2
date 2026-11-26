@@ -1,0 +1,30 @@
+#!/bin/bash
+#PBS -N EHT_v2_tutorials
+#PBS -q workq
+#PBS -l select=1:ncpus=16:mpiprocs=1:ompthreads=16:mem=12gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+set -uo pipefail
+cd "$PBS_O_WORKDIR"
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLBACKEND=Agg
+PY=${PYTHON:-$HOME/YAEHMOP/.venv/bin/python}
+mkdir -p examples/tutorials/results
+status=examples/tutorials/results/${SUITE:-devices}_status.txt
+: > "$status"
+case "${SUITE:-devices}" in
+ devices) files=(examples/tutorials/*/run.device.job examples/devices/*.device.job);;
+ bandfit) files=(examples/tutorials/bandfit/*_smoke.transport.job);;
+ full_bandfit) files=(examples/tutorials/bandfit/*B.transport.job);;
+ electronic) files=(pyaehmop/examples_friendly/*.job pyaehmop/SPIN_TEST/examples/*.spin);;
+ *) exit 2;;
+esac
+for f in "${files[@]}"; do
+  name=$(basename "$(dirname "$f")")_$(basename "$f")
+  if [[ "$f" == *.spin ]]; then
+    "$PY" -m pyaehmop.SPIN_TEST "$f" > "examples/tutorials/results/$name.log" 2>&1
+  else
+    "$PY" -m pyaehmop "$f" --workers 8 > "examples/tutorials/results/$name.log" 2>&1
+  fi
+  echo "$f exit=$?" >> "$status"
+done
+if grep -qE "exit=[1-9]" "$status"; then exit 1; fi

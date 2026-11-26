@@ -1,0 +1,15 @@
+examples/tutorials/graphene_mos2_graphene/run.device.job exit=0
+examples/tutorials/graphene_x/run.device.job exit=0
+examples/tutorials/nanoribbon/run.device.job exit=0
+examples/tutorials/potential_barrier/run.device.job exit=0
+examples/tutorials/spin_antiparallel/run.device.job exit=0
+examples/tutorials/spin_parallel/run.device.job exit=0
+examples/tutorials/wide_vacancy/run.device.job exit=0
+examples/devices/adsorbate.device.job exit=0
+examples/devices/asymmetric.device.job exit=0
+examples/devices/graphene_mos2.device.job exit=0
+examples/devices/pristine.device.job exit=0
+examples/devices/soc.device.job exit=0
+examples/devices/spin.device.job exit=0
+examples/devices/spin_soc.device.job exit=0
+examples/devices/vacancy.device.job exit=0
