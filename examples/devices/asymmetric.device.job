@@ -1,3 +1,6 @@
+# Device geometry: XYZ positions in angstrom in ONE global Cartesian frame.
+# L/R files contain nearest principal layers; both repeat vectors point L -> R.
+# Transverse vectors are common to all regions; omit/blank for a 1D device.
 electrode_left = chain_left.xyz
 scattering_region = chain_device.xyz
 electrode_right = chain_right.xyz
@@ -5,11 +8,13 @@ left_repeat = 0 0 1.5
 right_repeat = 0 0 1.8
 cutoff = 2.0
 transverse_kpoints =
+# Absolute common EHT reference in eV; not an automatic Fermi energy.
 energy_reference_eV = -11
 energy_min = -2
 energy_max = 2
 energy_points = 41
 workers = 2
+# G is at 0 K; I(V) uses equilibrium T(E), not self-consistent bias.
 calculations = transmission, conductance, iv
 output = results/asymmetric
 plots = true

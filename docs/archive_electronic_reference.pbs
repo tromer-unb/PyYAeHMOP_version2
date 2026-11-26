@@ -1,0 +1,8 @@
+#!/bin/bash
+#PBS -N EHT_doc_data
+#PBS -l select=1:ncpus=1:mem=1gb
+#PBS -l walltime=00:05:00
+#PBS -j oe
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+"${PYTHON:-python}" docs/archive_electronic_reference.py

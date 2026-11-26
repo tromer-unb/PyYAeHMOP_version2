@@ -6,7 +6,7 @@ The independent Python transport kernel uses the existing PyYAeHMOP real-space o
 
 ![Archived graphene comparison](graphene_comparison.svg)
 
-The static [CSV](graphene_comparison.csv) contains 41 points sampled by linear interpolation from the existing LCCMat calculations (not new GitHub computations). DFT uses its reported energy reference, EHT uses its Dirac energy; a rigorous common alignment remains to be validated. The DFT endpoint values use nearest endpoint extension (original midpoint energy grid). The EHT runs used 301 transverse k points, 401 energies, eta=1e-5 eV, 11 Å cutoff, and 16 workers; DFT PBE/DZP used 1201 k points, 2000 energies, 300 Ry, zero bias. EHT uses a pristine rectangular four-carbon cell (16 orbitals), folded into a principal layer; DFT used an eight-carbon electrode and 32-carbon device. PBS jobs 62836 and 62837 generated the EHT data. The two methods agree closely near the Dirac point but differ above +1 eV, particularly above +1.5 eV. This is a preliminary benchmark, not a converged quantitative validation.
+The static [CSV](graphene_comparison.csv) contains 41 points sampled by linear interpolation from the archived research calculations (not new GitHub computations). DFT uses its reported energy reference, EHT uses its Dirac energy; a rigorous common alignment remains to be validated. The DFT endpoint values use nearest endpoint extension (original midpoint energy grid). The EHT runs used 301 transverse k points, 401 energies, eta=1e-5 eV, 11 Å cutoff, and 16 workers; DFT PBE/DZP used 1201 k points, 2000 energies, 300 Ry, zero bias. EHT uses a pristine rectangular four-carbon cell (16 orbitals), folded into a principal layer; DFT used an eight-carbon electrode and 32-carbon device. PBS jobs 62836 and 62837 generated the EHT data. The two methods agree closely near the Dirac point but differ above +1 eV, particularly above +1.5 eV. This is a preliminary benchmark, not a converged quantitative validation.
 
 ## Which bands were fitted?
 
@@ -20,7 +20,7 @@ From repository root, install with pip install -e ".[plots]" and run:
 
     OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -m pyaehmop.graphene_transport --model pdz7 --nk 301 --ne 401 --workers 4 --output results/pdz7
 
-Use --model sp5 for the shared parameters. Add --reference PATH for an optional aligned two-column DFT curve. No DFT reference is required. The static SVG is viewable without executing anything. The generic Python API is pyaehmop.transport.realspace, principal_layers, transmission and spectrum. Current scope: coherent, spin-degenerate, identical periodic leads and a pristine central principal layer. Defects, dissimilar leads, spin/SOC, finite-bias self-consistency and GUI integration are not implemented. No automatic CI or heavy runs are added.
+Use --model sp5 for the shared parameters. Add --reference PATH for an optional aligned two-column DFT curve. No DFT reference is required. The static SVG is viewable without executing anything. The generic Python API is pyaehmop.transport.realspace, principal_layers, transmission and spectrum. Current scope: coherent, spin-degenerate, identical periodic leads and a pristine central principal layer. This uniform solver does not support defects or spin/SOC; Version 2 provides these in the separate device solver. Neither solver supports self-consistent finite bias or a transport GUI. No automatic CI or heavy runs are added.
 
 ## References
 
@@ -32,7 +32,7 @@ Use --model sp5 for the shared parameters. Add --reference PATH for an optional 
 
 ## Matched 2-, 4- and 6-band calibration
 
-Six additional fits use the same 338 SIESTA PBE/DZP k points, every fifth point held out, folded four-carbon EHT cell into the eight-carbon DFT electrode. BandFit differential evolution (180 evaluations per model) followed by SciPy least squares optimized the s onsite energy, K and energy alignment; p onsite, radial exponents and contraction coefficients were frozen. This is partial recalibration, not a new full sp5 or p-DZ7 optimization. Jobs 62838–62844 ran on LCCMat only. Transport used 301 transverse k points and 401 energies. See [parameters](multiband_parameters.json), [transmission data](multiband.csv).
+Six additional fits use the same 338 SIESTA PBE/DZP k points, every fifth point held out, folded four-carbon EHT cell into the eight-carbon DFT electrode. BandFit differential evolution (180 evaluations per model) followed by SciPy least squares optimized the s onsite energy, K and energy alignment; p onsite, radial exponents and contraction coefficients were frozen. This is partial recalibration, not a new full sp5 or p-DZ7 optimization. Jobs 62838–62844 ran on a research cluster, not GitHub. Transport used 301 transverse k points and 401 energies. See [parameters](multiband_parameters.json), [transmission data](multiband.csv).
 
 | Model | Validation bands RMSE (eV) | T MAE ±2 eV | T MAE ±1 eV |
 |---|---:|---:|---:|
@@ -50,14 +50,14 @@ The four-band p-DZ7 has the smallest observed transmission MAE within ±1 eV (24
 
 ## Friendly job, installation and execution
 
-    git clone https://github.com/tromer-unb/PyYAeHMOP.git
-    cd PyYAeHMOP
+    git clone https://github.com/tromer-unb/PyYAeHMOP_version2.git
+    cd PyYAeHMOP_version2
     python -m venv .venv
     source .venv/bin/activate
     python -m pip install -e ".[all]"
     OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -m pyaehmop examples/transport/graphene.transport.job --workers 4
 
-The transport example is [graphene.transport.job](graphene.transport.job). Relative paths resolve against the job directory. For a periodic XYZ specify lattice vectors (semicolon-separated rows, Å), image bounds and zero-based transport lattice index; transverse mesh sizes follow remaining lattice axes. For CIF/ASE use a file with the intended periodicity (CIF normally sets 3D periodicity; use extended XYZ for 2D). Native YAeHMOP input also works. Supply an explicit absolute energy reference in eV, not an automatically inferred Fermi level. Only pristine identical periodic leads are supported. Parameters may be default or an external native YAeHMOP table. Other materials require validated parameters and suitable geometry.
+The transport example is [graphene.transport.job](graphene.transport.job). Relative paths resolve against the job directory. For a periodic XYZ specify lattice vectors (semicolon-separated rows, Å), image bounds and zero-based transport lattice index; transverse mesh sizes follow remaining lattice axes. For CIF/ASE use a file with the intended periodicity (CIF normally sets 3D periodicity; use extended XYZ for 2D). Native YAeHMOP input also works. Supply an explicit absolute energy reference in eV, not an automatically inferred Fermi level. The .transport.job solver is for pristine identical periodic leads; for independent regions, defects, dissimilar leads and spin/SOC use .device.job (see ../devices/README.md). Parameters may be default or an external native YAeHMOP table. Other materials require validated parameters and suitable geometry.
 
 Outputs: transmission.dat (per spin), transmission_k.npz, conductance.dat (S, zero temperature), current_voltage.dat (A), summary.json and optional PNGs. Existing bands/DOS remain available through ordinary .job files. No GitHub workflow runs on push.
 

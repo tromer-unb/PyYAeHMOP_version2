@@ -1,0 +1,6 @@
+examples/tutorials/bandfit/pdz7_2B.transport.job exit=0
+examples/tutorials/bandfit/pdz7_4B.transport.job exit=0
+examples/tutorials/bandfit/pdz7_6B.transport.job exit=0
+examples/tutorials/bandfit/shared_2B.transport.job exit=0
+examples/tutorials/bandfit/shared_4B.transport.job exit=0
+examples/tutorials/bandfit/shared_6B.transport.job exit=0

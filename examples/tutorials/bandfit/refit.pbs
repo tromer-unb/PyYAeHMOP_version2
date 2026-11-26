@@ -1,13 +1,12 @@
 #!/bin/bash
 #PBS -N EHT_v2_refit
-#PBS -q workq
 #PBS -l select=1:ncpus=4:mpiprocs=1:mem=4gb
 #PBS -l walltime=02:00:00
 #PBS -j oe
 set -euo pipefail
 cd "$PBS_O_WORKDIR"
 export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
-PY=${PYTHON:-$HOME/YAEHMOP/.venv/bin/python}
+PY=${PYTHON:-python}
 # Only needed to recreate the checked-in compact reference from raw SIESTA files.
 if [[ -n "${DFT_ELECTRODE:-}" ]]; then
   "$PY" examples/tutorials/bandfit/extract_reference.py "$DFT_ELECTRODE"

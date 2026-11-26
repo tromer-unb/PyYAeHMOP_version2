@@ -2,7 +2,7 @@
 
 This is the entry point to all runnable examples. No computation is triggered
 by GitHub. Each linked job is a real input file, not pseudocode. Numerical
-reference outputs were generated on LCCMat with PBS.
+reference outputs were generated on a PBS-enabled research cluster; no access to that cluster is required.
 
 ## Installation and common commands
 
@@ -20,12 +20,12 @@ Run a single input from the repository root:
     python -m pyaehmop examples/tutorials/graphene_x/run.device.job --workers 4
 
 For PBS, submit from the same directory. Set PYTHON to your environment's
-Python path if different from the LCCMat default:
+absolute Python executable; use your site's queue/account settings if required:
 
-    qsub -v SUITE=devices,PYTHON=/path/to/.venv/bin/python examples/tutorials/run_suite.pbs
-    qsub -v SUITE=electronic examples/tutorials/run_suite.pbs
-    qsub -v SUITE=bandfit examples/tutorials/run_suite.pbs
-    qsub -v SUITE=full_bandfit examples/tutorials/run_suite.pbs
+    qsub -v SUITE=devices,PYTHON="$(command -v python)" examples/tutorials/run_suite.pbs
+    qsub -v SUITE=electronic,PYTHON="$(command -v python)" examples/tutorials/run_suite.pbs
+    qsub -v SUITE=bandfit,PYTHON="$(command -v python)" examples/tutorials/run_suite.pbs
+    qsub -v SUITE=full_bandfit,PYTHON="$(command -v python)" examples/tutorials/run_suite.pbs
 
 The last command is substantially heavier (301 transverse k points, 401
 energies, six parameterizations). Do not run on a cluster login node.
@@ -33,7 +33,9 @@ Results are written to the directories specified in each job (ignored by Git).
 PBS status files are written to this directory's results/. The archive script
 copies compact spectra and summary files to reference/:
 
-    qsub examples/tutorials/archive.pbs
+    qsub -v PYTHON="$(command -v python)" examples/tutorials/archive.pbs
+
+For detailed electrode placement see [geometry guide](../../docs/device-geometry.md); for parameter selection see [parameter guide](../../docs/parameters.md). Download the [illustrated PDF tutorial](../../docs/PyYAeHMOP_v2_tutorial.pdf).
 
 ## 1. Molecular and periodic electronic structure
 
@@ -147,9 +149,12 @@ No new engine functionality has been introduced in this tutorial update.
 | 15 independent device examples | 62855 | 15/15 passed, 53 s |
 | Six quick BandFit transport examples | 62856 | 6/6 passed, 17 s |
 | Nine electronic + six periodic/molecular spin examples | 62857 | 15/15 passed, 25 s |
-| Six full-resolution transport re-runs | 62858 | Submitted; see local PBS status, not counted as completed here |
+| Six full-resolution transport re-runs | 62858 | 6/6 passed, 9 min 29 s |
 | Six BandFit partial optimizations | 62859 | 6/6 reproduced exactly, 31 s |
 | Compact tutorial reference archive | 62860 | Passed, 3 s |
 
-The previous full-resolution spectra are already present in ../transport.
-The new quick-run archive and actual refit are separate from that benchmark.
+The full-resolution rerun reproduced all six archived curves within 5e-11 absolute T at the 41 shared sample energies. See [full spectra](bandfit/reference/full_transmission.csv) and [reproduction metrics](bandfit/reference/reproduction_metrics.json). The original comparison with TranSIESTA remains in ../transport.
+
+## Rebuild the PDF
+
+The [PDF manual](../../docs/PyYAeHMOP_v2_tutorial.pdf) is generated from shipped inputs and archived numerical tables. With NumPy and Matplotlib installed, run python docs/build_tutorial.py from the checkout. No electronic or transport calculation is required for this documentation step.

@@ -1,11 +1,10 @@
 #!/bin/bash
 #PBS -N EHT_v2_tutorial_archive
-#PBS -q workq
 #PBS -l select=1:ncpus=1:mem=3gb
 #PBS -l walltime=00:10:00
 #PBS -j oe
 set -euo pipefail
 cd "$PBS_O_WORKDIR"
 export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLBACKEND=Agg
-PY=${PYTHON:-$HOME/YAEHMOP/.venv/bin/python}
+PY=${PYTHON:-python}
 "$PY" examples/tutorials/archive.py

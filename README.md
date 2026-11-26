@@ -1,3 +1,5 @@
+**Start here:** [Illustrated PDF tutorial](docs/PyYAeHMOP_v2_tutorial.pdf) · [Runnable examples](examples/tutorials/README.md) · [Installation](docs/installation.md) · [Device geometry](docs/device-geometry.md) · [Parameter sources](docs/parameters.md)
+
 > **Version 2 experimental device transport.** This independent repository preserves PyYAeHMOP 0.4.0 and adds explicit left/right electrodes, independent scattering region, frozen collinear spin and atomic SOC. See [device input and examples](examples/devices/README.md).
 
 <p align="center">
@@ -19,7 +21,7 @@
 
 <p align="center">
   <img alt="Python 3.10+" src="https://img.shields.io/badge/Python-3.10%2B-3776ab?logo=python&logoColor=white">
-  <img alt="Version 0.4.0" src="https://img.shields.io/badge/version-0.4.0-6554b7">
+  <img alt="Version 0.5.0.dev0" src="https://img.shields.io/badge/version-0.5.0.dev0-6554b7">
   <img alt="License MIT" src="https://img.shields.io/badge/license-MIT-218b8a">
   <img alt="Linux desktop GUI" src="https://img.shields.io/badge/GUI-Linux%20desktop-168899">
   <img alt="Research software" src="https://img.shields.io/badge/status-research%20software-b58434">
@@ -64,7 +66,7 @@ For the GUI and structure readers, clone the repository and install its optional
 
 ```bash
 git clone https://github.com/tromer-unb/PyYAeHMOP_version2.git
-cd PyYAeHMOP
+cd PyYAeHMOP_version2
 python3 -m pip install -e ".[gui]"
 ```
 
@@ -74,7 +76,7 @@ python3 -m pip install -e ".[gui]"
 
 ```bash
 git clone https://github.com/tromer-unb/PyYAeHMOP_version2.git
-cd PyYAeHMOP
+cd PyYAeHMOP_version2
 conda env create -f environment.yml
 conda activate pyaehmop
 ```

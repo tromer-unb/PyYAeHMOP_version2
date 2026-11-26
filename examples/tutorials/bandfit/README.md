@@ -15,9 +15,9 @@ From the PyYAeHMOP_version2 root with the Python environment active:
     git -C ../yaehmop-bandfit checkout c4a7fa0326b04409bd5ba2b0556985b4e5e0e428
     OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -m examples.tutorials.bandfit.refit --bandfit ../yaehmop-bandfit --workers 4
 
-Or on LCCMat:
+Or on a PBS-enabled cluster:
 
-    qsub examples/tutorials/bandfit/refit.pbs
+    qsub -v PYTHON="$(command -v python)" examples/tutorials/bandfit/refit.pbs
 
 This uses the initial parameters in reference/, freezes radial exponents,
 contraction coefficients and p onsite energies, optimizes s onsite, K and
@@ -50,8 +50,8 @@ Run an individual example:
 
 Or submit PBS from repository root:
 
-    qsub -v SUITE=bandfit examples/tutorials/run_suite.pbs
-    qsub -v SUITE=full_bandfit examples/tutorials/run_suite.pbs
+    qsub -v SUITE=bandfit,PYTHON="$(command -v python)" examples/tutorials/run_suite.pbs
+    qsub -v SUITE=full_bandfit,PYTHON="$(command -v python)" examples/tutorials/run_suite.pbs
 
 All six quick jobs passed PBS 62856. Compact [quick transmission](reference/smoke_transmission.csv),
 [conductance](reference/smoke_conductance.csv) and [I(V)](reference/smoke_current_voltage.csv)
@@ -60,3 +60,5 @@ comparison near E_F and the original plots, is in [transport](../../transport/RE
 Quick-grid spectra are NOT the high-resolution benchmark.
 
 ![Quick transport comparison](reference/smoke_transmission.svg)
+
+All six full jobs also completed (PBS 62858). Compare [full T(E)](reference/full_transmission.csv), [G(E)](reference/full_conductance.csv), [I(V)](reference/full_current_voltage.csv) and [reproduction errors](reference/reproduction_metrics.json). The maximum discrepancy against the archived EHT values at the 41 shared energies is below 5e-11. This verifies reproducibility, not DFT accuracy.

@@ -1,13 +1,12 @@
 #!/bin/bash
 #PBS -N EHT_v2_tutorials
-#PBS -q workq
 #PBS -l select=1:ncpus=16:mpiprocs=1:ompthreads=16:mem=12gb
 #PBS -l walltime=02:00:00
 #PBS -j oe
 set -uo pipefail
 cd "$PBS_O_WORKDIR"
 export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLBACKEND=Agg
-PY=${PYTHON:-$HOME/YAEHMOP/.venv/bin/python}
+PY=${PYTHON:-python}
 mkdir -p examples/tutorials/results
 status=examples/tutorials/results/${SUITE:-devices}_status.txt
 : > "$status"

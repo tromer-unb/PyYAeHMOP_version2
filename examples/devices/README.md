@@ -13,11 +13,11 @@ project is untouched. All tests and numerical calculations run outside GitHub.
     python -m pip install -e ".[all]"
     OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -m pyaehmop examples/devices/pristine.device.job
 
-On LCCMat, submit from the repository root:
+On a PBS-enabled cluster, submit from the repository root:
 
-    qsub examples/devices/validate.pbs
+    qsub -v PYTHON="$(command -v python)" examples/devices/validate.pbs
 
-Edit the Python path in the PBS file for other clusters.
+PBS is optional. On a workstation run the individual commands directly. Adapt resources and queue/account options to your scheduler.
 
 ## Geometry convention and input
 
@@ -29,6 +29,8 @@ for a 1D device. The lead repeats may have different lengths. The solver
 rejects geometries when it cannot guarantee that the cutoff excludes
 direct L-R coupling, second-neighbor lead layers or deeper lead-device
 couplings. Enlarge principal layers and device buffer as necessary.
+
+See [the illustrated geometry guide](../../docs/device-geometry.md), [parameter sources](../../docs/parameters.md), and [PDF tutorial](../../docs/PyYAeHMOP_v2_tutorial.pdf). Identical graphene leads have identical local geometry, not identical absolute XYZ coordinates. The left and right files are translations of pristine.xyz by -8.52 and +8.52 Å along z.
 
 See pristine.device.job for all keys. The suffix .device.job selects
 the new solver; the old .transport.job remains available.
@@ -93,11 +95,11 @@ geometry optimization or GUI device builder. Validation is numerical,
 not an independent DFT-NEGF benchmark for defects or MoS2. Test convergence
 of overlaps, cutoff, eta, energy/k grids and principal layers before research.
 
-## LCCMat PBS validation (2026-11-26)
+## Research-cluster PBS validation (2026-11-26)
 
 Source baseline: upstream PyYAeHMOP main commit
-12ecadbbe8295a554004177d8d724434a95c8fca. All calculations ran on LCCMat,
-never on GitHub Actions. PBS job 62853.LCCMat-1 finished with Exit_status=0
+12ecadbbe8295a554004177d8d724434a95c8fca. All validation calculations ran on a research cluster,
+never on GitHub Actions. PBS job 62853 (historical job ID) finished with Exit_status=0
 in 48 s; 66 core tests ran (64 passed, 2 skipped), 17 spin tests passed.
 The five device tests are included in the core count. Eight device jobs
 and the pristine regression all reported exit=0. The earlier attempts
@@ -130,6 +132,23 @@ much denser mesh and a longer cutoff.
 
 For a reproduction of these compact figures after the validation job:
 
-    qsub examples/devices/archive.pbs
+    qsub -v PYTHON="$(command -v python)" examples/devices/archive.pbs
 
 No GitHub workflows are included in Version 2.
+
+## How to modify each example
+
+All files have plain Cartesian XYZ positions in Å. In a pristine comparison use the same local basis/parameter table in all regions. Keep contact buffers and do not move the leads independently without rebuilding the interfaces.
+
+| Input | What to change in a new model | What to keep fixed in a controlled comparison |
+|---|---|---|
+| pristine.device.job | Change lead thickness, transverse repeat or central length consistently | Same material and aligned contact layers |
+| vacancy.device.job | Remove/relax the desired atom in the central XYZ | Pristine leads, transverse period and energy convention |
+| adsorbate.device.job | Add a molecule only in D, using justified adsorption geometry and parameters | Pristine leads; compare the clean counterpart |
+| asymmetric.device.job | Supply different lead XYZs and longitudinal repeats | Common transverse convention and contact positions |
+| graphene_mos2.device.job | Build a commensurate relaxed interface; fit C/Mo/S and alignment | Shared transverse repeat and correct lead buffers |
+| spin.device.job | Set spin=true; use exchange_eV by atom index and shell in magnetic.json | Preserve geometry; compare against nonmagnetic case |
+| soc.device.job | Set soc=true; use soc_eV by species and shell | Same physical basis and geometry, spinor counting |
+| spin_soc.device.job | Enable both; supply both calibrated frozen potentials | Same reference and numerical grids |
+
+See the [geometry atlas](../../docs/device-geometry.md) and [illustrated PDF](../../docs/PyYAeHMOP_v2_tutorial.pdf) for actual coordinate plots, transmission, conductance and I(V) for every case.

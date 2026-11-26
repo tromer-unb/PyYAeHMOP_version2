@@ -2,7 +2,7 @@
 
 [← Overview](../README.md) · [GUI guide](gui.md) · [Inputs](input-formats.md)
 
-PyYAeHMOP 0.4.0 uses **Python 3.10 or newer**, NumPy and SciPy. Structure import from CIF/POSCAR and most graphical features use ASE and Matplotlib. The interactive Linux desktop application uses the Python **Tk** library.
+PyYAeHMOP Version 2 (0.5.0.dev0) uses **Python 3.10 or newer**, NumPy and SciPy. Structure import from CIF/POSCAR and most graphical features use ASE and Matplotlib. The interactive Linux desktop application uses the Python **Tk** library.
 
 > **Distribution status:** This repository is the authoritative source. The instructions below use **pip installation from GitHub** or **Conda to install dependencies and then the local project**. We do **not** claim that a separate PyPI or conda-forge release exists.
 
@@ -11,8 +11,8 @@ PyYAeHMOP 0.4.0 uses **Python 3.10 or newer**, NumPy and SciPy. Structure import
 On systems with a supported Python installation and Git:
 
 ```bash
-git clone https://github.com/tromer-unb/PyYAeHMOP.git
-cd PyYAeHMOP
+git clone https://github.com/tromer-unb/PyYAeHMOP_version2.git
+cd PyYAeHMOP_version2
 python3 -m pip install -e .
 ```
 
@@ -27,16 +27,16 @@ Use `python` instead of `python3` if that is your environment's Python command.
 **Install without cloning** (core engine):
 
 ```bash
-python3 -m pip install "git+https://github.com/tromer-unb/PyYAeHMOP.git"
+python3 -m pip install "git+https://github.com/tromer-unb/PyYAeHMOP_version2.git"
 ```
 
-For a deterministic code revision, replace the Git URL with `git+https://github.com/tromer-unb/PyYAeHMOP.git@<commit-sha>`; record the SHA in your publication.
+For a deterministic code revision, replace the Git URL with `git+https://github.com/tromer-unb/PyYAeHMOP_version2.git@<commit-sha>`; record the SHA in your publication.
 
 ## Isolated pip environment (recommended)
 
 ```bash
-git clone https://github.com/tromer-unb/PyYAeHMOP.git
-cd PyYAeHMOP
+git clone https://github.com/tromer-unb/PyYAeHMOP_version2.git
+cd PyYAeHMOP_version2
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
@@ -59,8 +59,8 @@ The GUI requires an active desktop display. A headless SSH session, terminal-onl
 The root [`environment.yml`](../environment.yml) creates a reproducible dependency environment and installs PyYAeHMOP from the current checkout with pip:
 
 ```bash
-git clone https://github.com/tromer-unb/PyYAeHMOP.git
-cd PyYAeHMOP
+git clone https://github.com/tromer-unb/PyYAeHMOP_version2.git
+cd PyYAeHMOP_version2
 conda env create -f environment.yml
 conda activate pyaehmop
 ```
@@ -154,4 +154,8 @@ python -m unittest discover -s pyaehmop/tests -p 'test_*.py' -v
 python -m unittest discover -s pyaehmop/SPIN_TEST/tests -p 'test_*.py' -v
 ```
 
-The repository includes a **manually triggered** GitHub workflow for future validation, but this publication does not require running anything on GitHub. No PyPI/conda-forge package or GitHub Release asset is implied by the source installation instructions.
+Version 2 has no GitHub Actions workflows. Run validation only in your own environment. No PyPI/conda-forge package or GitHub Release asset is implied by the source installation instructions.
+
+## Transport examples
+
+Clone the source checkout (recommended, since the example geometry/data folders are not all installed as package data). Start with [the tutorial index](../examples/tutorials/README.md) and [PDF manual](PyYAeHMOP_v2_tutorial.pdf). A workstation is sufficient for the quick cases; PBS is entirely optional. On Windows use `.venv\Scripts\Activate.ps1` in PowerShell instead of the Unix activation command.

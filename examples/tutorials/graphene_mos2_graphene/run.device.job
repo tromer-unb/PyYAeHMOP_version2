@@ -1,19 +1,26 @@
+# Device geometry: XYZ positions in angstrom in ONE global Cartesian frame.
+# L/R files contain nearest principal layers; both repeat vectors point L -> R.
+# Transverse vectors are common to all regions; omit/blank for a 1D device.
 electrode_left = left.xyz
 scattering_region = device.xyz
 electrode_right = right.xyz
 transverse_vectors = 9.838048 0 0
 left_repeat = 0 0 8.52
 right_repeat = 0 0 8.52
+# Native YAeHMOP table or default; BandFit exports use this same format.
+# K is set separately and must match the chosen calibration.
 parameters = ../../transport/carbon_pdz7_4B.dat
 K = 2.0068527138311567
 cutoff = 3.5
 quadrature = 16 12 8
+# Absolute common EHT reference in eV; not an automatic Fermi energy.
 energy_reference_eV = -18.800896640571224
 energy_min = -2
 energy_max = 2
 energy_points = 21
 transverse_kpoints = 3
 workers = 4
+# G is at 0 K; I(V) uses equilibrium T(E), not self-consistent bias.
 calculations = transmission, conductance, iv
 temperature = 300
 bias_min = -2

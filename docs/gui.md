@@ -7,7 +7,7 @@ PyYAeHMOP Studio is a fully functioning **Tkinter + Matplotlib** application for
 ## Launch
 
 ```bash
-cd PyYAeHMOP
+cd PyYAeHMOP_version2
 python -m pip install -e ".[gui]"
 python -m pyaehmop.gui
 ```

@@ -1,23 +1,22 @@
 #!/bin/bash
 #PBS -N EHT_v2_validation
-#PBS -q workq
 #PBS -l select=1:ncpus=16:mpiprocs=1:ompthreads=16:mem=12gb
 #PBS -l walltime=02:00:00
 #PBS -j oe
 set -uo pipefail
 cd "$PBS_O_WORKDIR"
 export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLBACKEND=Agg
-PY=$HOME/YAEHMOP/.venv/bin/python
-$PY -m unittest discover -s pyaehmop/tests -p 'test_device_transport.py' -v > device_tests.log 2>&1
+PY=${PYTHON:-python}
+"$PY" -m unittest discover -s pyaehmop/tests -p 'test_device_transport.py' -v > device_tests.log 2>&1
 echo "device_tests exit=$?" > validation_status.txt
-$PY -m unittest discover -s pyaehmop/tests -p 'test_*.py' -v > core_tests.log 2>&1
+"$PY" -m unittest discover -s pyaehmop/tests -p 'test_*.py' -v > core_tests.log 2>&1
 echo "core_tests exit=$?" >> validation_status.txt
-$PY -m unittest discover -s pyaehmop/SPIN_TEST/tests -p 'test_*.py' -v > spin_tests.log 2>&1
+"$PY" -m unittest discover -s pyaehmop/SPIN_TEST/tests -p 'test_*.py' -v > spin_tests.log 2>&1
 echo "spin_tests exit=$?" >> validation_status.txt
 for name in pristine vacancy adsorbate asymmetric spin soc spin_soc graphene_mos2; do
-  $PY -m pyaehmop "examples/devices/$name.device.job" --workers 8 > "$name.log" 2>&1
+  "$PY" -m pyaehmop "examples/devices/$name.device.job" --workers 8 > "$name.log" 2>&1
   echo "$name exit=$?" >> validation_status.txt
 done
-$PY -m examples.devices.check_pristine > pristine_comparison.log 2>&1
+"$PY" -m examples.devices.check_pristine > pristine_comparison.log 2>&1
 echo "pristine_comparison exit=$?" >> validation_status.txt
 if grep -qE "exit=[1-9]" validation_status.txt; then exit 1; fi
