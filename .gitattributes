@@ -1,0 +1,12 @@
+# Text files across Linux, macOS and Windows
+* text=auto
+*.py text eol=lf
+*.sh text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.svg text eol=lf
+*.xyz text eol=lf
+*.cif text eol=lf
+*.spin text eol=lf
+*.job text eol=lf

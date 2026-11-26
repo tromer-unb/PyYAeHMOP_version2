@@ -1,0 +1,11 @@
+# Read EHT parameters from a separate classic YAeHMOP file.
+xyz
+water.xyz
+parameters = water_parameters.txt
+calculations = energy, charges, dos
+charge = 0
+dos_sigma = 0.2
+workers = 2
+outputs = json,csv,png
+plots = yes
+output = ../results/water_custom_parameters

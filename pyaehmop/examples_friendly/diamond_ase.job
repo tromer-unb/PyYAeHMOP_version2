@@ -1,0 +1,10 @@
+ase
+diamond_primitive.extxyz
+
+calculations = charges, energy
+kmesh = 2 2 2
+images = 5 5 5
+cutoff = 11
+workers = 2
+outputs = json,csv
+output = ../results/friendly_diamond_ase

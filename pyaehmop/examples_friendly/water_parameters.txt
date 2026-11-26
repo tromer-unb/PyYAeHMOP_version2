@@ -1,0 +1,4 @@
+; Classic YAeHMOP PARAMETERS format: element Z Nval Ns zeta_s Hss Np zeta_p Hpp
+; Each species can be on its own line.
+H 1 1 1 1.3000 -13.6000
+O 8 6 2 2.2750 -32.3000 2 2.2750 -14.8000

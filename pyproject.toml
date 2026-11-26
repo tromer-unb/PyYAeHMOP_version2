@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=65", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyaehmop"
+version = "0.5.0.dev0"
+description = "Independent YAeHMOP-inspired extended Hückel implementation with parallel computing, spin/SOC and GUI"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [{name = "PyYAeHMOP contributors"}]
+dependencies = ["numpy>=1.24", "scipy>=1.10"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Chemistry",
+  "Operating System :: OS Independent"
+]
+
+[project.optional-dependencies]
+formats = ["ase>=3.22"]
+plots = ["matplotlib>=3.7"]
+all = ["ase>=3.22", "matplotlib>=3.7"]
+gui = ["ase>=3.22", "matplotlib>=3.7"]
+
+[project.scripts]
+pyaehmop = "pyaehmop.cli:main"
+pyaehmop-gui = "pyaehmop.gui:main"
+
+[tool.setuptools]
+packages = ["pyaehmop", "pyaehmop.SPIN_TEST"]
+package-dir = {pyaehmop = "pyaehmop"}
+include-package-data = true
+
+[tool.setuptools.package-data]
+pyaehmop = ["eht_parms.dat", "LICENSE.txt", "EASY_INPUT.md", "GUI_GUIDE.md", "inputs/*", "examples_friendly/*"]
+"pyaehmop.SPIN_TEST" = ["README.md", "examples/*"]
+
+[project.urls]
+Homepage = "https://github.com/tromer-unb/PyYAeHMOP_version2"
+Source = "https://github.com/tromer-unb/PyYAeHMOP_version2"
+Issues = "https://github.com/tromer-unb/PyYAeHMOP_version2/issues"
+Documentation = "https://github.com/tromer-unb/PyYAeHMOP_version2/tree/main/docs"

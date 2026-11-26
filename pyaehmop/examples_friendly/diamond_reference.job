@@ -1,0 +1,9 @@
+yaehmop
+../inputs/diamond
+
+calculations = energy, charges, bands, dos
+# For comparison, retain the diamond input band path and integration k points.
+dos_sigma = 0.15
+workers = 2
+outputs = json,csv
+output = ../results/friendly_diamond_original

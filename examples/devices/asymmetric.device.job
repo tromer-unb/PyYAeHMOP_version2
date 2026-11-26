@@ -1,0 +1,15 @@
+electrode_left = chain_left.xyz
+scattering_region = chain_device.xyz
+electrode_right = chain_right.xyz
+left_repeat = 0 0 1.5
+right_repeat = 0 0 1.8
+cutoff = 2.0
+transverse_kpoints =
+energy_reference_eV = -11
+energy_min = -2
+energy_max = 2
+energy_points = 41
+workers = 2
+calculations = transmission, conductance, iv
+output = results/asymmetric
+plots = true

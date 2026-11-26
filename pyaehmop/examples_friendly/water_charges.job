@@ -1,0 +1,10 @@
+# First line: format; second line: path relative to this file.
+xyz
+water.xyz
+
+# Basic analysis: compute only the requested properties.
+calculations = charges
+charge = 0
+workers = 2
+outputs = json, csv
+output = ../results/friendly_water_charges

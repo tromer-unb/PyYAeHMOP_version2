@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: >-
+  If you use PyYAeHMOP in research, cite this repository and the
+  original Extended Hückel and YAeHMOP literature identified in the documentation.
+title: "PyYAeHMOP: Extended Hückel Theory, spin–orbit extensions and parallel Python tools"
+authors:
+  - name: "PyYAeHMOP contributors"
+version: "0.4.0"
+type: software
+repository-code: "https://github.com/tromer-unb/PyYAeHMOP"
+url: "https://github.com/tromer-unb/PyYAeHMOP"
+license: MIT
+keywords:
+  - extended Hückel
+  - electronic structure
+  - tight binding
+  - parallel computing
+  - spin orbit coupling
+  - Python
+  - scientific software

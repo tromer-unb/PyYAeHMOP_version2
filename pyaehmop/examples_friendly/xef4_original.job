@@ -1,0 +1,8 @@
+yaehmop
+../inputs/XeF4
+
+# Preserve the original geometry, parameters, FMO and COOP requests.
+calculations = energy, charges, orbitals, fmo, bonds
+workers = 2
+outputs = json, csv
+output = ../results/friendly_xef4

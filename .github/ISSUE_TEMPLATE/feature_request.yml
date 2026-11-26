@@ -1,0 +1,41 @@
+name: Feature request
+description: Propose a new scientific capability, GUI improvement, or documentation
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Feature proposals are welcome. For model changes, describe the scientific reference and the approximations.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Scientific model / method
+        - Spin or spin–orbit
+        - Input formats
+        - Parallel performance
+        - Desktop GUI
+        - Documentation
+        - Packaging / installation
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or scientific need
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed approach
+      description: Include formulas or references when relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: tests
+    attributes:
+      label: How should it be validated?
+      description: Suggest reproducible tests, molecular/periodic examples, or a limiting analytic case.

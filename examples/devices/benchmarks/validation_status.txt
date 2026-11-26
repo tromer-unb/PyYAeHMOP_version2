@@ -1,0 +1,12 @@
+device_tests exit=0
+core_tests exit=0
+spin_tests exit=0
+pristine exit=0
+vacancy exit=0
+adsorbate exit=0
+asymmetric exit=0
+spin exit=0
+soc exit=0
+spin_soc exit=0
+graphene_mos2 exit=0
+pristine_comparison exit=0

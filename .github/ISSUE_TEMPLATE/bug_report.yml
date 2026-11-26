@@ -1,0 +1,58 @@
+name: Bug report
+description: Report an unexpected result, failure, or reproducible regression
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a reproducible issue. Please avoid posting confidential structures or credentials.
+        For possible security vulnerabilities, consult SECURITY.md instead.
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - EHT engine / overlap
+        - Native YAeHMOP input
+        - Friendly XYZ/CIF/ASE input
+        - Parameter files
+        - Spin / SOC
+        - Parallel execution
+        - Linux GUI
+        - Installation / packaging
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Share a minimal non-sensitive input and the command used.
+      placeholder: "python -m pyaehmop ..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: config
+    attributes:
+      label: Parameter file and numerical configuration
+      description: Include EHT parameters, kmesh, quadrature, cutoff, SCF settings, and workers where relevant.
+  - type: input
+    id: environment
+    attributes:
+      label: Python version / operating system / commit
+      placeholder: "Linux, Python 3.12, commit ..."
+    validations:
+      required: true

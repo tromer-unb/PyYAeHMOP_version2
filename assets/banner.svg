@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 420" role="img" aria-labelledby="title description">
+  <title id="title">PyYAeHMOP — Extended Hückel theory, redesigned in Python</title>
+  <desc id="description">Midnight-blue banner with atomic orbitals, a stylized electronic band structure and the PyYAeHMOP wordmark</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2=".8"><stop offset="0" stop-color="#071328"/><stop offset=".57" stop-color="#10264b"/><stop offset="1" stop-color="#122150"/></linearGradient>
+    <linearGradient id="orb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2ce8d3"/><stop offset=".57" stop-color="#66ceef"/><stop offset="1" stop-color="#a991f8"/></linearGradient>
+    <linearGradient id="band" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#23e0d2"/><stop offset="1" stop-color="#af93f8"/></linearGradient>
+    <clipPath id="clip"><rect width="1440" height="420" rx="28"/></clipPath>
+  </defs>
+  <g clip-path="url(#clip)">
+    <rect width="1440" height="420" fill="url(#bg)"/>
+    <g stroke="#6ca0cc" stroke-width="1" opacity=".09">
+      <path d="M0 70H1440M0 140H1440M0 210H1440M0 280H1440M0 350H1440"/>
+      <path d="M90 0V420M240 0V420M390 0V420M540 0V420M690 0V420M840 0V420M990 0V420M1140 0V420M1290 0V420"/>
+    </g>
+    <circle cx="1120" cy="199" r="315" fill="#235b83" opacity=".08"/>
+    <g fill="none" stroke="url(#orb)" stroke-width="5.5" stroke-linecap="round">
+      <ellipse cx="1152" cy="190" rx="205" ry="74" transform="rotate(-28 1152 190)" />
+      <ellipse cx="1152" cy="190" rx="205" ry="74" transform="rotate(32 1152 190)" opacity=".75"/>
+      <ellipse cx="1152" cy="190" rx="199" ry="73" transform="rotate(89 1152 190)" opacity=".36"/>
+    </g>
+    <circle cx="1152" cy="190" r="46" fill="#1b4a6c" stroke="#6be1ef" stroke-width="2"/>
+    <circle cx="1152" cy="190" r="21" fill="#4be6d8" opacity=".55"/>
+    <circle cx="976" cy="97" r="10" fill="#2de6d8"/>
+    <circle cx="1270" cy="300" r="11" fill="#bba4fb"/>
+    <g transform="translate(930,300)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 30Q36 -21 78 6T167 20T259 -8T403 15" stroke="#76e6eb" stroke-width="4"/>
+      <path d="M0 45Q45 55 84 28T183 42T279 17T404 29" stroke="#b79cfb" stroke-width="3.5" opacity=".82"/>
+      <path d="M0 69Q62 78 116 60T223 70T315 48T404 61" stroke="#36a4c9" stroke-width="2.8" opacity=".65"/>
+    </g>
+    <rect x="75" y="72" width="172" height="35" rx="17.5" fill="#183f56" stroke="#2cbac4" stroke-opacity=".55"/>
+    <text x="161" y="96" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="16" fill="#71f3dd" font-weight="650" letter-spacing="1.5">RESEARCH SOFTWARE</text>
+    <text x="72" y="194" font-family="Inter,Arial,sans-serif" font-size="75" font-weight="800" letter-spacing="-2.2" fill="#f5fbff">PyYAeHMOP</text>
+    <text x="76" y="245" font-family="Inter,Arial,sans-serif" font-size="25" font-weight="450" fill="#bad3ea">Extended Hückel theory, reimplemented in Python</text>
+    <path d="M76 277H735" stroke="#3b6581" stroke-width="1.5"/>
+    <text x="76" y="323" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="650" fill="#4fe3d4">PARALLEL COMPUTING</text>
+    <circle cx="327" cy="316" r="3.5" fill="#557892"/>
+    <text x="346" y="323" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="650" fill="#a8bff5">SPIN + SOC</text>
+    <circle cx="495" cy="316" r="3.5" fill="#557892"/>
+    <text x="515" y="323" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="650" fill="#6ddde9">DESKTOP GUI</text>
+    <text x="76" y="382" font-family="Inter,Arial,sans-serif" font-size="16" fill="#789cb7">Electronic structure · Materials modelling · Molecular systems</text>
+  </g>
+</svg>

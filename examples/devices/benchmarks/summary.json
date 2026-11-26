@@ -1,0 +1,62 @@
+{
+  "pristine": {
+    "T_max": 0.5333133708417538,
+    "T_at_reference": 0.13332914774503749,
+    "I_at_max_bias_uA": 23.695160666122362,
+    "n_energy": 81,
+    "spin_convention": "per spin"
+  },
+  "vacancy": {
+    "T_max": 0.0191311138425276,
+    "T_at_reference": 0.004287637199911857,
+    "I_at_max_bias_uA": 0.6805834685632361,
+    "n_energy": 81,
+    "spin_convention": "per spin"
+  },
+  "adsorbate": {
+    "T_max": 0.533307089806345,
+    "T_at_reference": 0.13332909645066415,
+    "I_at_max_bias_uA": 23.597410135689312,
+    "n_energy": 81,
+    "spin_convention": "per spin"
+  },
+  "asymmetric": {
+    "T_max": 1.661035216568245,
+    "T_at_reference": 1.5448685111297509,
+    "I_at_max_bias_uA": 238.9208772881899,
+    "n_energy": 41,
+    "spin_convention": "per spin"
+  },
+  "spin": {
+    "T_max": 0.03840861827375838,
+    "T_at_reference": 0.0085760898759252,
+    "I_at_max_bias_uA": 0.681067358907776,
+    "n_energy": 81,
+    "spin_convention": "total spinor"
+  },
+  "soc": {
+    "T_max": 0.038260226044137036,
+    "T_at_reference": 0.008576195784618516,
+    "I_at_max_bias_uA": 0.680630125828872,
+    "n_energy": 81,
+    "spin_convention": "total spinor"
+  },
+  "spin_soc": {
+    "T_max": 0.03840655774703925,
+    "T_at_reference": 0.008577013140008749,
+    "I_at_max_bias_uA": 0.681114069668181,
+    "n_energy": 81,
+    "spin_convention": "total spinor"
+  },
+  "graphene_mos2": {
+    "T_max": 1.279626073122982,
+    "T_at_reference": 6.002543926505056e-09,
+    "I_at_max_bias_uA": 2.6958739438082133e-06,
+    "n_energy": 21,
+    "spin_convention": "per spin"
+  },
+  "pristine_regression": {
+    "MAE": 6.795401852740496e-06,
+    "max_abs": 1.9770436671506797e-05
+  }
+}
