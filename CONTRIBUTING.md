@@ -33,7 +33,7 @@ git clone https://github.com/tromer-unb/PyYAeHMOP.git
 cd PyYAeHMOP
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -e ".[gui]"
+python -m pip install -e ".[all]"
 ```
 
 ## Running the local scientific tests
@@ -45,7 +45,7 @@ python -m unittest discover -s pyaehmop/tests -p "test_*.py" -v
 python -m unittest discover -s pyaehmop/SPIN_TEST/tests -p "test_*.py" -v
 ```
 
-The Tk window test requires a desktop display; on a headless runner it may be skipped. The optional GitHub workflow runs **only when manually dispatched**. No GitHub Action is required or triggered automatically by a pull request or push.
+The optional GitHub workflow runs **only when manually dispatched**. No GitHub Action is required or triggered automatically by a pull request or push.
 
 ## Pull request checklist
 

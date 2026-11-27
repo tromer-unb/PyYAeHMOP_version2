@@ -58,9 +58,6 @@ The command is python -m pyaehmop PATH --workers 4.
 
 For periodic COOP/COHP see the existing [native inputs](../../pyaehmop/inputs)
 and [extension tests](../../pyaehmop/tests/test_extensions.py).
-The GUI can load the same ordinary molecular/crystal inputs, but has no
-device-building tab. Start it on a graphical Linux desktop with
-python -m pyaehmop.gui; see [GUI guide](../../docs/gui.md).
 
 ## 2. Self-consistent periodic spin and atomic SOC
 

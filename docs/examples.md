@@ -4,7 +4,7 @@
 
 The repository includes source input files used in the **local 0.4.0 validation**. These examples provide reproducible baseline results, **not experimental reference data**.
 
-Run commands from the repository root after installing with `pip install -e ".[gui]"` or activating the Conda environment.
+Run commands from the repository root after installing with `pip install -e ".[all]"` or activating the Conda environment.
 
 ## Molecular examples
 

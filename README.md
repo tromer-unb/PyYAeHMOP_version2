@@ -29,7 +29,6 @@ Both formats run directly. Explicit device CIFs use a common ordered P1 box and 
 <p align="center">
   <a href="#quick-start">Quick start</a> ·
   <a href="#what-you-can-calculate">Features</a> ·
-  <a href="#desktop-graphical-interface">Desktop GUI</a> ·
   <a href="#input-formats">Input formats</a> ·
   <a href="#scientific-background">Theory</a> ·
   <a href="#validation-and-examples">Validation</a> ·
@@ -40,13 +39,12 @@ Both formats run directly. Explicit device CIFs use a common ordered P1 box and 
   <img alt="Python 3.10+" src="https://img.shields.io/badge/Python-3.10%2B-3776ab?logo=python&logoColor=white">
   <img alt="Version 0.5.0.dev0" src="https://img.shields.io/badge/version-0.5.0.dev0-6554b7">
   <img alt="License MIT" src="https://img.shields.io/badge/license-MIT-218b8a">
-  <img alt="Linux desktop GUI" src="https://img.shields.io/badge/GUI-Linux%20desktop-168899">
   <img alt="Research software" src="https://img.shields.io/badge/status-research%20software-b58434">
 </p>
 
 > **An independent, YAeHMOP-inspired Python implementation of Extended Hückel Theory (EHT)** with parallel CPU calculations, molecular and periodic electronic structure, an accessible input format, and experimental self-consistent spin polarization and spin–orbit coupling (SOC).
 
-**PyYAeHMOP** is more than a graphical wrapper or a language translation. It implements the electronic-structure calculations in Python/NumPy/SciPy, extends the workflow with convenient XYZ/CIF/ASE inputs, and adds a Linux desktop application for configuring, running and visualizing calculations. **It does not require the original compiled YAeHMOP executable.**
+**PyYAeHMOP** is more than a graphical wrapper or a language translation. It implements the electronic-structure calculations in Python/NumPy/SciPy and extends the workflow with convenient XYZ/CIF/ASE inputs. **It does not require the original compiled YAeHMOP executable.**
 
 **Independence and attribution:** PyYAeHMOP is an **unofficial, independently developed research project**, not a release of or an officially supported interface to YAeHMOP. The original YAeHMOP project and parameter data are credited in [Third-party notices](THIRD_PARTY_NOTICES.md).
 
@@ -65,7 +63,7 @@ Both formats run directly. Explicit device CIFs use a common ordered P1 box and 
 | Spin + SOC | Combined collinear-z Stoner SCF and spin-projected bands/DOS |
 | Parallel computing | CPU processes for independent overlaps and k-point calculations |
 | Input | Native YAeHMOP subset, XYZ, CIF, ASE, user-supplied EHT parameters |
-| User experience | CLI, compact human-readable jobs, **Tkinter graphical interface on Linux** |
+| User experience | CLI, compact human-readable jobs |
 
 **Scope:** Spin and SOC are **experimental semiempirical extensions**, not fully noncollinear spin-DFT. EHT total electronic energies are not DFT total energies; physical predictions require material-specific parameter validation and convergence studies.
 
@@ -79,12 +77,12 @@ Install the Python engine directly from this source repository:
 python3 -m pip install "git+https://github.com/tromer-unb/PyYAeHMOP_version2.git"
 ```
 
-For the GUI and structure readers, clone the repository and install its optional dependencies:
+For structure readers and plotting, clone the repository and install its optional dependencies:
 
 ```bash
 git clone https://github.com/tromer-unb/PyYAeHMOP_version2.git
 cd PyYAeHMOP_version2
-python3 -m pip install -e ".[gui]"
+python3 -m pip install -e ".[all]"
 ```
 
 > This is a **GitHub-source installation**, not a claim that `pyaehmop` is already published on PyPI.
@@ -121,7 +119,7 @@ plots = yes
 output = results/water
 ```
 
-The first two lines specify the structure **format** and **file**. Relative paths are resolved against the input file's directory. The GUI can generate these jobs automatically.
+The first two lines specify the structure **format** and **file**. Relative paths are resolved against the input file's directory.
 
 ### First periodic calculation · diamond
 
@@ -130,36 +128,6 @@ python -m pyaehmop pyaehmop/examples_friendly/diamond_cif.job
 ```
 
 This reads a CIF structure and evaluates bands/DOS with the example's selected EHT parameters and k-point settings.
-
-## Desktop graphical interface
-
-<p align="center">
-  <img src="assets/figures/fe-wire-spin-soc.svg" width="96%" alt="Example spin-resolved electronic bands calculated for an iron wire">
-</p>
-
-PyYAeHMOP Studio is a **working Linux desktop interface**, not a mockup. It provides file chooser buttons and a fully interactive workflow:
-
-1. **Load** YAeHMOP, XYZ, CIF, POSCAR or ASE-supported structures.
-2. **Select** bundled EHT parameters, load a separate YAeHMOP parameter file, or **edit orbital shells in a table**.
-3. **Choose** energy, Mulliken charges, bands, DOS, COOP/COHP, FMO and numerical options.
-4. **Switch** between regular EHT, spin-polarized SCF, SOC-only or spin+SOC modes.
-5. **Preview** atoms/cell in 3D, then click **Run calculation**.
-6. **Explore** the *Structure*, *Bands*, *DOS*, *Charges*, *SCF*, *Summary* and *Console* tabs.
-
-Calculations run in a separate Python process so the window remains responsive. Graphs can be zoomed and exported. The application reuses the **same scientific Python engine** as the CLI.
-
-```bash
-# On a Linux desktop with Tkinter / Matplotlib / ASE installed:
-pyaehmop-gui
-
-# Or from the cloned source:
-python -m pyaehmop.gui
-
-# Alternative launcher:
-./scripts/launch_gui.sh
-```
-
-The GUI needs a graphical display (e.g. X11/Wayland desktop). See [GUI documentation](docs/gui.md) and the [complete bundled manual](pyaehmop/GUI_GUIDE.md). GUI behavior has been validated on Linux; other platforms have not been systematically tested.
 
 ## What you can calculate
 
@@ -183,6 +151,10 @@ plots = yes
 Periodic calculations use a generalized eigenvalue problem with nonorthogonal atomic orbitals and Bloch-summed real-space overlaps. Band-path gaps are **path-sampled** and may differ from the fundamental gap.
 
 ### Self-consistent spin polarization with spin–orbit coupling
+
+<p align="center">
+  <img src="assets/figures/fe-wire-spin-soc.svg" width="96%" alt="Example spin-resolved electronic bands calculated for an iron wire">
+</p>
 
 ```ini
 ase
@@ -209,7 +181,7 @@ quadrature = 20 18 12
 workers = 2
 ```
 
-Set `spin = yes, soc = no` for spin-only, or `spin = no, soc = yes` for SOC-only. With SOC, pure ↑/↓ channels generally do **not** exist: the GUI colors bands by their spin expectation value `⟨σz⟩`.
+Set `spin = yes, soc = no` for spin-only, or `spin = no, soc = yes` for SOC-only. With SOC, pure ↑/↓ channels generally do **not** exist: the spin/SOC plotting code colors bands by their spin expectation value `⟨σz⟩`.
 
 ```bash
 python -m pyaehmop.SPIN_TEST --demo
@@ -229,7 +201,7 @@ or:
 parameters = custom_yaehmop.txt
 ```
 
-The file can contain a classic YAeHMOP `PARAMETERS` block or a native `eht_parms.dat`-style table, including double-zeta coefficients. Parameters may be loaded in either ordinary EHT jobs or spin/SOC jobs. The GUI also exposes a visual shell editor. Full details: [input reference](docs/input-formats.md#eht-parameter-selection).
+The file can contain a classic YAeHMOP `PARAMETERS` block or a native `eht_parms.dat`-style table, including double-zeta coefficients. Parameters may be loaded in either ordinary EHT jobs or spin/SOC jobs. Full details: [input reference](docs/input-formats.md#eht-parameter-selection).
 
 ## Input formats
 
@@ -240,7 +212,7 @@ The file can contain a classic YAeHMOP `PARAMETERS` block or a native `eht_parms
 | `cif` | Crystallographic CIF path | Crystal bands and DOS |
 | `ase` | ASE-readable geometry path | POSCAR, extended XYZ, supported formats |
 
-There is no need to convert every structure into YAeHMOP syntax. Choose tasks with `calculations = energy, charges, bands, dos`, or select them in the GUI. **Native YAeHMOP input keywords remain unchanged** for format compatibility.
+There is no need to convert every structure into YAeHMOP syntax. Choose tasks with `calculations = energy, charges, bands, dos`. **Native YAeHMOP input keywords remain unchanged** for format compatibility.
 
 [All input keywords and ready-to-copy jobs](docs/input-formats.md) · [Bundled example files](pyaehmop/examples_friendly) · [Spin examples](pyaehmop/SPIN_TEST/examples)
 
@@ -293,7 +265,7 @@ The experimental magnetic extension adds a self-consistent Stoner exchange poten
 ```text
 PyYAeHMOP/
 ├── assets/                 # Vector logo, banner and curated example figures
-├── docs/                   # Installation, theory, inputs, GUI and validation
+├── docs/                   # Installation, theory, inputs and validation
 ├── pyaehmop/
 │   ├── basis.py            # Atomic Slater orbital basis
 │   ├── overlap.py          # Numerical overlap integration
@@ -301,7 +273,6 @@ PyYAeHMOP/
 │   ├── friendly.py         # Human-readable job files
 │   ├── structure_io.py     # XYZ, CIF and ASE
 │   ├── parameter_files.py  # External YAeHMOP parameters
-│   ├── gui.py              # Tk desktop GUI
 │   ├── SPIN_TEST/          # Self-consistent Stoner and SOC research module
 │   ├── examples_friendly/  # Tested molecular / periodic inputs
 │   ├── inputs/             # Original-format input examples
@@ -329,7 +300,7 @@ The original new Python project is released under the [MIT License](LICENSE). Re
 
 ---
 
-<p align="center"><strong>Built for reproducible extended Hückel research — from molecules to crystals, from the command line to the desktop.</strong></p>
+<p align="center"><strong>Built for reproducible extended Hückel research — from molecules to crystals, through reproducible command-line inputs.</strong></p>
 
 ## Experimental quantum transport (EHT-NEGF)
 

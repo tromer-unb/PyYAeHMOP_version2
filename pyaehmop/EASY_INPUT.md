@@ -275,5 +275,4 @@ parameters = C 6 4 2 1.71 -21.4 2 1.625 -11.4
 
 When the geometry is a native YAeHMOP file, `default` retains the
 parameters already defined by that source file, rather than overriding
-them unexpectedly. For a GUI without manual editing, launch
-`python3 -m pyaehmop.gui` (see `GUI_GUIDE.md`).
+them unexpectedly.

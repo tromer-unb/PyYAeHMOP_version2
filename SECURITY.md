@@ -2,7 +2,7 @@
 
 ## Scope
 
-PyYAeHMOP is research software that processes user-provided geometry and parameter files, runs numerical Python computations, and optionally launches a desktop GUI.
+PyYAeHMOP is research software that processes user-provided geometry and parameter files, runs numerical Python computations.
 
 ## Supported version
 
@@ -17,7 +17,6 @@ Please include affected version/commit, platform, minimal reproduction steps and
 ## Operating safely
 
 - Treat untrusted structure files and parameter paths as inputs that require review.
-- The GUI starts a child Python process to perform calculations; use it with input sources you trust.
 - Use a dedicated Python environment for scientific dependencies.
 - Do not run contributed shell scripts with root permissions without review.
 - Avoid processing confidential structures in shared result folders.

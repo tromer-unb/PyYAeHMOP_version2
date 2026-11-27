@@ -1,8 +1,8 @@
 # Installation
 
-[← Overview](../README.md) · [GUI guide](gui.md) · [Inputs](input-formats.md)
+[← Overview](../README.md) · [Inputs](input-formats.md)
 
-PyYAeHMOP Version 2 (0.5.0.dev0) uses **Python 3.10 or newer**, NumPy and SciPy. Structure import from CIF/POSCAR and most graphical features use ASE and Matplotlib. The interactive Linux desktop application uses the Python **Tk** library.
+PyYAeHMOP Version 2 (0.5.0.dev0) uses **Python 3.10 or newer**, NumPy and SciPy. Structure import from CIF/POSCAR uses ASE; plotting uses Matplotlib.
 
 > **Distribution status:** This repository is the authoritative source. The instructions below use **pip installation from GitHub** or **Conda to install dependencies and then the local project**. We do **not** claim that a separate PyPI or conda-forge release exists.
 
@@ -16,10 +16,10 @@ cd PyYAeHMOP_version2
 python3 -m pip install -e .
 ```
 
-The basic installation provides EHT calculations and standard YAeHMOP/XYZ inputs. For optional ASE structures, Matplotlib plotting and the desktop GUI:
+The basic installation provides EHT calculations and standard YAeHMOP/XYZ inputs. For optional ASE structures and Matplotlib plotting:
 
 ```bash
-python3 -m pip install -e ".[gui]"
+python3 -m pip install -e ".[all]"
 ```
 
 Use `python` instead of `python3` if that is your environment's Python command.
@@ -40,19 +40,8 @@ cd PyYAeHMOP_version2
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -e ".[gui]"
+python -m pip install -e ".[all]"
 ```
-
-### Debian/Ubuntu GUI requirements
-
-If Tkinter is unavailable on a system Python, install it using your OS package manager (example for apt-based systems):
-
-```bash
-sudo apt update
-sudo apt install python3-tk
-```
-
-The GUI requires an active desktop display. A headless SSH session, terminal-only container, or server without graphical forwarding cannot open Tk windows, though all CLI calculations remain available. Linux desktop operation is tested; macOS and Windows desktop behavior has not been systematically validated.
 
 ## Conda installation (conda-forge)
 
@@ -74,7 +63,7 @@ conda env update -f environment.yml --prune
 Alternatively, create an environment manually:
 
 ```bash
-conda create -n pyaehmop -c conda-forge python=3.11 numpy scipy ase matplotlib tk pip
+conda create -n pyaehmop -c conda-forge python=3.11 numpy scipy ase matplotlib pip
 conda activate pyaehmop
 python -m pip install -e .
 ```
@@ -100,26 +89,6 @@ python -m pyaehmop.SPIN_TEST --demo
 
 Run all example commands from the **repository root**, so the relative paths above resolve correctly. In an installed package outside a source checkout, copy the bundled sample inputs to your own working directory.
 
-## Start the desktop GUI
-
-```bash
-pyaehmop-gui
-```
-
-or:
-
-```bash
-python -m pyaehmop.gui
-```
-
-From the repository checkout you may also run:
-
-```bash
-./scripts/launch_gui.sh
-```
-
-The optional `ase` package reads CIF, POSCAR, extended XYZ and other structure formats; `matplotlib` provides plots. Tkinter is provided by the Python distribution or system/Conda package, not necessarily by pip.
-
 ## Scientific numerical performance
 
 For multi-process calculations, avoid *nested* BLAS threading consuming more CPU cores than expected:
@@ -137,11 +106,9 @@ Then set `workers = 2`, `workers = 4`, etc. in the job. Speedup depends on the s
 | Symptom | Suggested action |
 |---|---|
 | `ModuleNotFoundError: numpy/scipy` | Install from `pip install -e .` in the selected environment |
-| `No module named tkinter` | Install the OS/Conda `tk` package |
-| `_tkinter.TclError: no display name` | Start a Linux desktop or enable appropriate trusted display forwarding |
 | `ImportError: ase` | Install `pip install -e ".[formats]"` or Conda ASE |
 | `ImportError: matplotlib` | Install `pip install -e ".[plots]"` |
-| Missing atomic parameters | Use `parameters = custom.txt` or the GUI editor |
+| Missing atomic parameters | Use `parameters = custom.txt` |
 | Non-positive overlap matrix | Check basis, geometry, integration orders and overlap cutoff |
 | Slow periodic calculations | Reduce diagnostic mesh, then perform a deliberate convergence study |
 

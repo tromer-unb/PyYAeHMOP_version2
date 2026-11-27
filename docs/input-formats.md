@@ -179,7 +179,7 @@ The parser supports s/p/d/f shells and double-zeta coefficients. Repeated native
 parameters = C 6 4 2 1.71 -21.4 2 1.625 -11.4
 ```
 
-This existing syntax is still accepted. A human-friendly alternative is the **GUI atomic-shell editor**: select an element, edit onsite energies and exponents with controls, and save directly in native YAeHMOP format.
+This existing syntax is still accepted.
 
 ### Physical caution
 
@@ -258,7 +258,7 @@ The parameter strengths above are **illustrative** and not a universal Fe calibr
 | `plots` | `yes` | Save available PNG figures |
 | `output` | `results/case` | Results directory |
 
-For additional settings and validation details consult the [complete friendly-input manual](../pyaehmop/EASY_INPUT.md). The desktop GUI exposes the same parameters through fields, selectors and checkboxes.
+For additional settings and validation details consult the [complete friendly-input manual](../pyaehmop/EASY_INPUT.md).
 
 ## CIF alternatives for transport
 

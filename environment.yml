@@ -8,6 +8,5 @@ dependencies:
   - scipy>=1.10
   - ase>=3.22
   - matplotlib>=3.7
-  - tk
   - pip:
       - -e .

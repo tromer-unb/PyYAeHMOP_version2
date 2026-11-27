@@ -51,7 +51,7 @@ python -m unittest discover -s pyaehmop/tests -p "test_*.py" -v
 python -m unittest discover -s pyaehmop/SPIN_TEST/tests -p "test_*.py" -v
 ```
 
-A Tk desktop or suitable display server is required for real GUI window tests. In headless environments, GUI window tests may be skipped as intended.
+The GUI-related rows above describe the historical 0.4.0 validation. The desktop GUI and its dedicated tests have since been removed from Version 2; scientific and parameter regression tests remain.
 
 ## Convergence must be studied case-by-case
 

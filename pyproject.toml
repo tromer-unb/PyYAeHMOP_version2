@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pyaehmop"
 version = "0.5.0.dev0"
-description = "Independent YAeHMOP-inspired extended Hückel implementation with parallel computing, spin/SOC and GUI"
+description = "Independent YAeHMOP-inspired extended Hückel implementation with parallel computing, spin/SOC and transport"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {file = "LICENSE"}
@@ -29,11 +29,9 @@ classifiers = [
 formats = ["ase>=3.22"]
 plots = ["matplotlib>=3.7"]
 all = ["ase>=3.22", "matplotlib>=3.7"]
-gui = ["ase>=3.22", "matplotlib>=3.7"]
 
 [project.scripts]
 pyaehmop = "pyaehmop.cli:main"
-pyaehmop-gui = "pyaehmop.gui:main"
 
 [tool.setuptools]
 packages = ["pyaehmop", "pyaehmop.SPIN_TEST"]
@@ -41,7 +39,7 @@ package-dir = {pyaehmop = "pyaehmop"}
 include-package-data = true
 
 [tool.setuptools.package-data]
-pyaehmop = ["eht_parms.dat", "LICENSE.txt", "EASY_INPUT.md", "GUI_GUIDE.md", "inputs/*", "examples_friendly/*"]
+pyaehmop = ["eht_parms.dat", "LICENSE.txt", "EASY_INPUT.md", "inputs/*", "examples_friendly/*"]
 "pyaehmop.SPIN_TEST" = ["README.md", "examples/*"]
 
 [project.urls]

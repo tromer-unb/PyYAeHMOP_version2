@@ -19,7 +19,6 @@ body:
         - Parameter files
         - Spin / SOC
         - Parallel execution
-        - Linux GUI
         - Installation / packaging
         - Documentation
     validations:

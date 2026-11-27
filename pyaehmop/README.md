@@ -153,20 +153,6 @@ The English edition modifies language and naming only; it does not
 reparametrize the scientific implementation.
 
 
-## Desktop graphical interface (new in 0.4.0)
-
-Run `python3 -m pyaehmop.gui` or, after installation, `pyaehmop-gui`.
-Use the buttons to select a structure, default or external YAeHMOP
-parameter file or an interactive shell editor, EHT/spin/SOC mode, CPU workers, quadrature, bands, DOS,
-charges and output formats. Click **Preview structure**, then **Run
-calculation**. The seven tabs display 3D geometry, band structure,
-density of states, Mulliken charges, magnetic SCF, summaries and logs.
-The GUI transparently saves the generated `.job` or `.spin` input and
-runs the **existing Python numerical engine in a subprocess**. It does
-not introduce a separate EHT or SOC solver.
-
-Complete instructions: [GUI_GUIDE.md](GUI_GUIDE.md).
-
 ### External YAeHMOP parameter files
 
 The friendly input now supports either:

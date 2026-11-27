@@ -7,7 +7,6 @@ Describe the purpose and scope of this change.
 - [ ] Scientific model / new method
 - [ ] Bug fix
 - [ ] Input format / CLI
-- [ ] Desktop GUI
 - [ ] Documentation or packaging
 - [ ] Tests / reproducibility
 

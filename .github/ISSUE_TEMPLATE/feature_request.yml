@@ -1,5 +1,5 @@
 name: Feature request
-description: Propose a new scientific capability, GUI improvement, or documentation
+description: Propose a new scientific capability or documentation
 title: "[Feature]: "
 labels: ["enhancement"]
 body:
@@ -16,7 +16,6 @@ body:
         - Spin or spin–orbit
         - Input formats
         - Parallel performance
-        - Desktop GUI
         - Documentation
         - Packaging / installation
     validations:

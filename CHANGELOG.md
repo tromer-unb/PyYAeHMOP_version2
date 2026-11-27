@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 2 — desktop interface removal
+
+- Removed the optional desktop GUI, launcher, Tk dependency and GUI-only tests. All scientific engines, command-line inputs, examples and numerical outputs are unchanged.
+
 This project uses a [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) style and semantic source-version labels. Version numbers do not imply a PyPI, conda-forge or GitHub Release publication.
 
 ## [0.4.0] — Source snapshot

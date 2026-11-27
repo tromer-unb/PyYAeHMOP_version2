@@ -1,4 +1,4 @@
-"""Regression tests for custom YAeHMOP parameter files and the desktop GUI."""
+"""Regression tests for custom YAeHMOP parameter files and native table export."""
 from dataclasses import replace
 from pathlib import Path
 import json
@@ -12,12 +12,6 @@ import numpy as np
 from pyaehmop.basis import read_parameter_table
 from pyaehmop.friendly import read_easy_job,calculate_easy_job
 from pyaehmop.parameter_files import parse_parameter_file,load_parameter_selection
-from pyaehmop.gui_logic import GuiSettings,build_config,load_config,render_config_to_file
-from pyaehmop.gui_preview import load_structure_preview
-from pyaehmop.gui_visuals import (
-    draw_structure,draw_bands,draw_dos,draw_charges,draw_scf,format_summary)
-from pyaehmop.gui_runner import run_gui_calculation
-
 ROOT=Path(__file__).resolve().parents[1]
 
 
@@ -117,135 +111,6 @@ class TestParameterFiles(unittest.TestCase):
                 read_easy_job(path/"O.job")
 
 
-class TestGUIModel(unittest.TestCase):
-    def test_default_job_is_native_friendly_file(self):
-        source=ROOT/"examples_friendly/water.xyz"
-        s=GuiSettings(structure_file=str(source),calculations=("energy","charges"))
-        text=build_config(s)
-        self.assertIn("parameters = default",text)
-        self.assertIn("calculations = energy, charges",text)
-        with tempfile.TemporaryDirectory() as tmp:
-            file=render_config_to_file(s,tmp)
-            loaded=read_easy_job(file)
-            self.assertEqual(loaded.source_type,"xyz")
-            self.assertEqual(set(loaded.tasks),{"energy","charges"})
-            result=calculate_easy_job(loaded)
-            self.assertAlmostEqual(result["electronic_energy_eV"],
-                                   -162.5417635492,places=6)
-
-    def test_legacy_inline_params_roundtrip(self):
-        original=ROOT/"examples_friendly/diamond_cif.job"
-        state=load_config(original)
-        self.assertEqual(state.parameter_source,"inline")
-        self.assertIn("parameters = C 6 4",build_config(state))
-
-    def test_tk_window_construction(self):
-        try:
-            import tkinter as tk
-            from pyaehmop.gui import PyYAeHMOPStudio
-            root=tk.Tk()
-        except (ImportError,tk.TclError if "tk" in locals() else ImportError) as exc:
-            self.skipTest("No desktop Tk display available: "+str(exc))
-        root.withdraw()
-        try:
-            ui=PyYAeHMOPStudio(root)
-            root.update_idletasks()
-            self.assertEqual(len(ui.tabs),7)
-            self.assertIn("Bands",ui.tabs)
-            self.assertIn("Structure",ui.tabs)
-        finally:
-            root.destroy()
-
-    def test_custom_params_roundtrip(self):
-        s=GuiSettings(
-            structure_file=str(ROOT/"examples_friendly/water.xyz"),
-            parameter_source="file",
-            parameter_file=str(ROOT/"examples_friendly/water_parameters.txt"),
-            calculations=("energy","charges","dos"),
-            workers="2",output_dir=str(ROOT/"results/test_gui"),
-            plots=False)
-        with tempfile.TemporaryDirectory() as tmp:
-            path=render_config_to_file(s,tmp)
-            out=load_config(path)
-            self.assertEqual(out.parameter_source,"file")
-            self.assertEqual(out.parameter_file,s.parameter_file)
-            self.assertEqual(set(out.calculations),set(s.calculations))
-            self.assertEqual(out.workers,"2")
-
-    def test_spin_soc_config_and_roundtrip(self):
-        source=ROOT/"SPIN_TEST/examples/Fe_wire.extxyz"
-        state=GuiSettings(structure_format="ase",structure_file=str(source),
-                          mode="both",
-                          kmesh="24",band_path="G:0,0,0; X:0.5,0,0",
-                          divisions="75",cutoff="5.6",
-                          quadrature="20 18 12",images="3")
-        text=build_config(state)
-        self.assertIn("spin = yes",text)
-        self.assertIn("soc = yes",text)
-        with tempfile.TemporaryDirectory() as tmp:
-            path=render_config_to_file(state,tmp)
-            self.assertEqual(path.suffix,".spin")
-            loaded=load_config(path)
-            self.assertEqual(loaded.mode,"both")
-            from pyaehmop.SPIN_TEST.config import read_spin_job
-            job=read_spin_job(path)
-            self.assertTrue(job.settings.spin)
-            self.assertTrue(job.settings.soc)
-            self.assertEqual(len(job.kpoints),24)
-
-    def test_invalid_duplicate_advanced_setting(self):
-        s=GuiSettings(structure_file=str(ROOT/"examples_friendly/water.xyz"),
-                      extra_options="workers = 3")
-        with self.assertRaisesRegex(ValueError,"Duplicate"):
-            build_config(s)
-
-    def test_invalid_missing_parameters(self):
-        s=GuiSettings(structure_file=str(ROOT/"examples_friendly/water.xyz"),
-                      parameter_source="file",parameter_file="/no/such/file")
-        with self.assertRaises(FileNotFoundError):
-            build_config(s)
-
-    def test_gui_runner_eht(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            state=GuiSettings(structure_file=str(ROOT/"examples_friendly/water.xyz"),
-                 output_dir=tmp,calculations=("energy","charges","dos"),
-                 plots=False)
-            path=render_config_to_file(state,tmp)
-            report_path=run_gui_calculation(path)
-            r=json.loads(report_path.read_text())
-            self.assertIn("mulliken_charges",r)
-            self.assertIn("dos",r)
-            self.assertAlmostEqual(r["electronic_energy_eV"],-162.5417635492,places=7)
-
-    def test_gui_runner_soc_atom(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            state=GuiSettings(structure_format="xyz",
-                 structure_file=str(ROOT/"SPIN_TEST/examples/C_atom.xyz"),
-                 mode="both",output_dir=tmp,workers="1",
-                 spin_shell_parameters="stoner_c_p = 1.2\nsoc_c_p = 0.04",
-                 plots=False,quadrature="12 12 8")
-            path=render_config_to_file(state,tmp)
-            data=json.loads(run_gui_calculation(path).read_text())
-            self.assertTrue(data["converged"])
-            self.assertGreater(data["total_moment_muB"],1.8)
-
-    def test_structure_preview_and_matplotlib_figures(self):
-        import matplotlib
-        matplotlib.use("Agg")
-        from matplotlib.figure import Figure
-        view=load_structure_preview(ROOT/"examples_friendly/water.xyz","xyz")
-        self.assertEqual(len(view.positions),3)
-        fig=Figure(figsize=(6,4))
-        draw_structure(fig,view)
-        fig.canvas.draw()
-        job=read_easy_job(ROOT/"examples_friendly/water_full.job")
-        result=calculate_easy_job(job)
-        for function in (draw_bands,draw_dos,draw_charges,draw_scf):
-            function(fig,result)
-            fig.canvas.draw()
-        self.assertIn("Electronic energy",format_summary(result))
-
-
 class TestAtomicParameterEditor(unittest.TestCase):
     def test_editor_exports_fe_double_zeta(self):
         from pyaehmop.parameter_editor_model import (
@@ -284,28 +149,6 @@ class TestAtomicParameterEditor(unittest.TestCase):
         rows[0]["zeta1"]="0.0"
         with self.assertRaisesRegex(ValueError,"disabled"):
             native_table_text(rows)
-
-    def test_editor_window_and_add_shell(self):
-        try:
-            import tkinter as tk
-            from pyaehmop.parameter_editor_dialog import AtomicParameterEditor
-            root=tk.Tk()
-        except (ImportError,tk.TclError if "tk" in locals() else ImportError) as exc:
-            self.skipTest("No Tk display: "+str(exc))
-        root.withdraw()
-        try:
-            dlg=AtomicParameterEditor(root,["C"])
-            self.assertEqual(len(dlg.rows),2)
-            dlg._add_row()
-            self.assertEqual(len(dlg.rows),3)
-            self.assertEqual(dlg.rows[-1]["shell"],"d")
-            dlg.vars["energy_eV"].set("-4.5")
-            dlg._update_row()
-            self.assertEqual(dlg.rows[-1]["energy_eV"],"-4.5")
-            dlg.top.destroy()
-        finally:
-            root.destroy()
-
 
 if __name__=="__main__":
     unittest.main()

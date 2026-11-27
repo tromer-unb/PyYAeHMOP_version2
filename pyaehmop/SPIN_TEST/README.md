@@ -266,5 +266,3 @@ independent `stoner_*` and `soc_*` parameters must still be supplied
 explicitly, because they describe different physical interactions.
 
 Example: `examples/Fe_wire_external_parameters.spin`.
-A graphical input alternative is available via
-`python3 -m pyaehmop.gui` from the English edition directory.
