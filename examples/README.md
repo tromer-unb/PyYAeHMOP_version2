@@ -1,5 +1,7 @@
 # All runnable examples — start here
 
+**Essential transport reading:** [How to define electrode repeat vectors — derivations, diagrams and cutoff checks](../docs/lead-repeats.md).
+
 Clone the repository, install with pip or Conda ([installation](../docs/installation.md)), then run the following commands **from the repository root**. No PBS or external transport software is required. Each transport row has two real executable job files, not just geometry files.
 
 ## Uniform periodic transport (XYZ and CIF)

@@ -1,5 +1,7 @@
 ## Download and run: complete example catalog
 
+**Essential transport reading:** [How to define electrode repeat vectors — derivations, diagrams and cutoff checks](docs/lead-repeats.md).
+
 **[All examples — XYZ and CIF input files side by side](examples/README.md)** · **[Complete illustrated PDF](docs/PyYAeHMOP_v2_tutorial.pdf)**
 
 Direct examples (from the repository root after installation):

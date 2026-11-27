@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib.patches import Rectangle
 from matplotlib.lines import Line2D
+from lead_repeat_chapter import CHAPTER_PAGES, add_chapter
 
 ROOT=Path(__file__).resolve().parents[1]
 DOC=ROOT/"docs"; DEV=ROOT/"examples/devices"; TUT=ROOT/"examples/tutorials"; BF=TUT/"bandfit"; TR=ROOT/"examples/transport"
@@ -402,7 +403,7 @@ cases=[
   ("graphene_mos2_graphene","Graphene–MoS2–graphene","A strained commensurate MoS2 channel between graphene leads. The geometry, default Mo/S parameters and energy alignment are not calibrated.",False,False)]
 
 device_index=[]
-next_page=6
+next_page=6+CHAPTER_PAGES
 for n,(name,title,desc,old,side) in enumerate(cases,1):
     p=DEV/(name+".device.job") if old else TUT/name/"run.device.job"
     k=len(device_groups(p))
@@ -426,13 +427,14 @@ with PdfPages(out,metadata={"Title":"PyYAeHMOP Version 2: Reproducible Electroni
     f.text(.075,.373,"What this manual covers",fontsize=12,fontweight="bold",color=TEAL)
     for j,l in enumerate(["02  Installation: pip, virtual environments and Conda",
         "03–05  Electronic structure and EHT / BandFit parameters",
-        f"06–{periodic_start-1}  Device-by-device: XYZ, CIF, results (15 cases)",
+        f"06–{5+CHAPTER_PAGES}  Essential transport: electrode repeats and principal layers",
+        f"{6+CHAPTER_PAGES:02d}–{periodic_start-1}  Device-by-device: XYZ, CIF, results (15 cases)",
         f"{periodic_start}–{periodic_end}  Uniform graphene and six BandFit models: XYZ then CIF",
         f"{guide_start}–{electronic_start-1}  Transport concepts, benchmarks, electronic plots and PBS",
         f"{electronic_start}–{last_page}  Molecular, crystalline, magnetic and native input examples",
         f"{last_page+1}  Example locator: exact directories and XYZ / CIF page numbers"]):
         f.text(.075,.34-j*.028,l,fontsize=10,color=NAVY)
-    linkline(f,.155,ROOT/"examples","Each example includes its local directory and clickable source files.",9)
+    linkline(f,.111,ROOT/"examples","Each example includes its local directory and clickable source files.",9)
     f.text(.075,.074,"Experimental code: numerical demonstrations are not automatically physical predictions.",fontsize=9,color=ORANGE)
     save(pdf,f)
     f=page(pdf,"Getting started","Install and run","Choose either a Python virtual environment or Conda.")
@@ -480,6 +482,7 @@ with PdfPages(out,metadata={"Title":"PyYAeHMOP Version 2: Reproducible Electroni
     y=para(f,.218,"The seven/five parameter names do not denote the number of bands. Each carbon still has four angular orbitals. Compare RMSE only with awareness of different target counts. For transport use the separately archived Dirac reference, not the fitted band-alignment shift.",size=9)
     para(f,y,"Quick job: python -m pyaehmop examples/tutorials/bandfit/pdz7_4B_smoke.transport.job --workers 4. For all six full and quick jobs, see examples/tutorials/bandfit/README.md.",size=9)
     save(pdf,f)
+    add_chapter(pdf,page,para,head,code,linkline,save,DEV,DOC)
     # All device examples are continuous and complete, XYZ immediately followed by CIF.
     for n,(name,title,desc,old,side) in enumerate(cases,1):
         p=DEV/(name+".device.job") if old else TUT/name/"run.device.job"

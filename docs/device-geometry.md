@@ -1,5 +1,7 @@
 **[Complete paired XYZ/CIF input catalog](../examples/README.md)** — all transport cases can now be run directly with either format.
 
+**Essential transport reading:** [How to define electrode repeat vectors — derivations, diagrams and cutoff checks](lead-repeats.md).
+
 # Building a two-terminal device
 
 [PDF tutorial](PyYAeHMOP_v2_tutorial.pdf) · [Example index](../examples/tutorials/README.md)

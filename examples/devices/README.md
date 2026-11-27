@@ -1,5 +1,7 @@
 **[Complete paired XYZ/CIF input catalog](../README.md)** — all transport cases can now be run directly with either format.
 
+**Essential transport reading:** [How to define electrode repeat vectors — derivations, diagrams and cutoff checks](../../docs/lead-repeats.md).
+
 # Version 2: independent two-terminal EHT-NEGF (experimental)
 
 Version 2 preserves the original PyYAeHMOP engine and its existing input formats,
