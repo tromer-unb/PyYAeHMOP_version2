@@ -1,95 +1,170 @@
 {
   "examples/devices/adsorbate.device.job": {
-    "max_coordinate_error_A": 0.0,
-    "transmission.dat": 0.0,
-    "conductance.dat": 0.0,
-    "current_voltage.dat": 0.0
+    "max_coordinate_error_A": 3.552713678800501e-15,
+    "global_translation_A": [
+      5.0,
+      5.0,
+      13.52
+    ],
+    "transmission.dat": 2.0219936835985663e-13,
+    "conductance.dat": 1.566502732652103e-17,
+    "current_voltage.dat": 7.521652571618187e-19
   },
   "examples/devices/asymmetric.device.job": {
     "max_coordinate_error_A": 0.0,
-    "transmission.dat": 0.0,
-    "conductance.dat": 0.0,
-    "current_voltage.dat": 0.0
+    "global_translation_A": [
+      5.0,
+      5.0,
+      6.5
+    ],
+    "transmission.dat": 1.0344169965037509e-11,
+    "conductance.dat": 8.01469350955597e-16,
+    "current_voltage.dat": 1.553119612085485e-17
   },
   "examples/devices/graphene_mos2.device.job": {
-    "max_coordinate_error_A": 0.0,
-    "transmission.dat": 0.0,
-    "conductance.dat": 0.0,
-    "current_voltage.dat": 0.0
+    "max_coordinate_error_A": 3.552713678800501e-15,
+    "global_translation_A": [
+      5.0,
+      6.56,
+      13.52
+    ],
+    "transmission.dat": 1.587618925213974e-14,
+    "conductance.dat": 1.2332799712022613e-18,
+    "current_voltage.dat": 2.8933146084099677e-24
   },
   "examples/devices/pristine.device.job": {
-    "max_coordinate_error_A": 0.0,
-    "transmission.dat": 0.0,
-    "conductance.dat": 0.0,
-    "current_voltage.dat": 0.0
+    "max_coordinate_error_A": 3.552713678800501e-15,
+    "global_translation_A": [
+      5.0,
+      5.0,
+      13.52
+    ],
+    "transmission.dat": 2.1538326677728037e-14,
+    "conductance.dat": 1.6686549060909717e-18,
+    "current_voltage.dat": 8.809142651444724e-20
   },
   "examples/devices/soc.device.job": {
-    "max_coordinate_error_A": 0.0,
-    "transmission.dat": 0.0,
-    "conductance.dat": 0.0,
-    "current_voltage.dat": 0.0
+    "max_coordinate_error_A": 3.552713678800501e-15,
+    "global_translation_A": [
+      5.0,
+      5.0,
+      13.52
+    ],
+    "transmission.dat": 6.418476861114186e-15,
+    "conductance.dat": 2.4860417001913715e-19,
+    "current_voltage.dat": 1.8317087484374245e-20
   },
   "examples/devices/spin.device.job": {
-    "max_coordinate_error_A": 0.0,
-    "transmission.dat": 0.0,
-    "conductance.dat": 0.0,
-    "current_voltage.dat": 0.0,
-    "current_spin.dat": 0.0
+    "max_coordinate_error_A": 3.552713678800501e-15,
+    "global_translation_A": [
+      5.0,
+      5.0,
+      13.52
+    ],
+    "transmission.dat": 6.480926906249351e-15,
+    "conductance.dat": 2.5114526886090005e-19,
+    "current_voltage.dat": 1.852884572118782e-20,
+    "current_spin.dat": 1.1858461261560205e-20
   },
   "examples/devices/spin_soc.device.job": {
-    "max_coordinate_error_A": 0.0,
-    "transmission.dat": 0.0,
-    "conductance.dat": 0.0,
-    "current_voltage.dat": 0.0
+    "max_coordinate_error_A": 3.552713678800501e-15,
+    "global_translation_A": [
+      5.0,
+      5.0,
+      13.52
+    ],
+    "transmission.dat": 6.473988012345444e-15,
+    "conductance.dat": 2.5093351062408648e-19,
+    "current_voltage.dat": 1.8317087484374245e-20
   },
   "examples/devices/vacancy.device.job": {
-    "max_coordinate_error_A": 0.0,
-    "transmission.dat": 0.0,
-    "conductance.dat": 0.0,
-    "current_voltage.dat": 0.0
+    "max_coordinate_error_A": 3.552713678800501e-15,
+    "global_translation_A": [
+      5.0,
+      5.0,
+      13.52
+    ],
+    "transmission.dat": 3.82506526452886e-15,
+    "conductance.dat": 2.9635565242059833e-19,
+    "current_voltage.dat": 1.6199505116238494e-20
   },
   "examples/tutorials/graphene_mos2_graphene/run.device.job": {
-    "max_coordinate_error_A": 0.0,
-    "transmission.dat": 0.0,
-    "conductance.dat": 0.0,
-    "current_voltage.dat": 0.0
+    "max_coordinate_error_A": 3.552713678800501e-15,
+    "global_translation_A": [
+      5.0,
+      6.56,
+      13.52
+    ],
+    "transmission.dat": 4.089437122267725e-14,
+    "conductance.dat": 3.168538497441524e-18,
+    "current_voltage.dat": 3.3203691532368573e-19
   },
   "examples/tutorials/graphene_x/run.device.job": {
-    "max_coordinate_error_A": 0.0,
-    "transmission.dat": 0.0,
-    "conductance.dat": 0.0,
-    "current_voltage.dat": 0.0
+    "max_coordinate_error_A": 3.552713678800501e-15,
+    "global_translation_A": [
+      12.378536,
+      5.0,
+      5.0
+    ],
+    "transmission.dat": 2.1094237467877974e-15,
+    "conductance.dat": 1.6940658945086007e-19,
+    "current_voltage.dat": 6.776263578034403e-21
   },
   "examples/tutorials/nanoribbon/run.device.job": {
-    "max_coordinate_error_A": 0.0,
-    "transmission.dat": 0.0,
-    "conductance.dat": 0.0,
-    "current_voltage.dat": 0.0
+    "max_coordinate_error_A": 3.552713678800501e-15,
+    "global_translation_A": [
+      5.0,
+      5.0,
+      13.52
+    ],
+    "transmission.dat": 7.531752999057062e-13,
+    "conductance.dat": 5.835718193403228e-17,
+    "current_voltage.dat": 5.908901840045999e-18
   },
   "examples/tutorials/potential_barrier/run.device.job": {
-    "max_coordinate_error_A": 0.0,
-    "transmission.dat": 0.0,
-    "conductance.dat": 0.0,
-    "current_voltage.dat": 0.0
+    "max_coordinate_error_A": 3.552713678800501e-15,
+    "global_translation_A": [
+      5.0,
+      5.0,
+      13.52
+    ],
+    "transmission.dat": 2.0539125955565396e-13,
+    "conductance.dat": 1.5917443144802812e-17,
+    "current_voltage.dat": 1.1180834903756764e-19
   },
   "examples/tutorials/spin_antiparallel/run.device.job": {
-    "max_coordinate_error_A": 0.0,
-    "transmission.dat": 0.0,
-    "conductance.dat": 0.0,
-    "current_voltage.dat": 0.0,
-    "current_spin.dat": 0.0
+    "max_coordinate_error_A": 3.552713678800501e-15,
+    "global_translation_A": [
+      5.0,
+      5.0,
+      13.52
+    ],
+    "transmission.dat": 1.7391643680753077e-13,
+    "conductance.dat": 6.3019251275719945e-18,
+    "current_voltage.dat": 1.0164395367051604e-20,
+    "current_spin.dat": 2.0328790734103208e-20
   },
   "examples/tutorials/spin_parallel/run.device.job": {
-    "max_coordinate_error_A": 0.0,
-    "transmission.dat": 0.0,
-    "conductance.dat": 0.0,
-    "current_voltage.dat": 0.0,
-    "current_spin.dat": 0.0
+    "max_coordinate_error_A": 3.552713678800501e-15,
+    "global_translation_A": [
+      5.0,
+      5.0,
+      13.52
+    ],
+    "transmission.dat": 6.744604874597826e-15,
+    "conductance.dat": 2.541098841762901e-19,
+    "current_voltage.dat": 1.6940658945086007e-20,
+    "current_spin.dat": 8.470329472543003e-21
   },
   "examples/tutorials/wide_vacancy/run.device.job": {
-    "max_coordinate_error_A": 0.0,
-    "transmission.dat": 0.0,
-    "conductance.dat": 0.0,
-    "current_voltage.dat": 0.0
+    "max_coordinate_error_A": 3.552713678800501e-15,
+    "global_translation_A": [
+      5.0,
+      5.0,
+      13.52
+    ],
+    "transmission.dat": 5.0182080713057076e-14,
+    "conductance.dat": 3.876022766635678e-18,
+    "current_voltage.dat": 2.642742795433417e-19
   }
 }

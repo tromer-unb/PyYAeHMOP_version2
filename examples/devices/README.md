@@ -23,7 +23,7 @@ PBS is optional. On a workstation run the individual commands directly. Adapt re
 
 ## Geometry convention and input
 
-Each XYZ file uses the SAME Cartesian frame (angstrom). Direct CIF jobs specify a common ordered P1 box and cif_origin metadata to recover that frame.
+Each XYZ file uses the SAME Cartesian frame (angstrom). Direct CIF jobs use a common ordered P1 box and coordinate frame; no auxiliary origin file is required. Never center the three regions independently.
 Left and right are the nearest principal layers, not isolated bulk cells
 at arbitrary origins. Repeat vectors both point from left toward right.
 The transverse lattice vectors are common to all three regions; omit them

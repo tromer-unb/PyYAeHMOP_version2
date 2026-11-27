@@ -12,7 +12,7 @@ def main():
         q=BF/(name+"_cif.transport.job")
         a=BF/(name+"_smoke.transport.job");b=BF/(name+"_smoke_cif.transport.job")
         lines.append("| "+name+" | "+" | ".join(link(x,base) for x in (p,q,a,b))+" |")
-    lines += ["","Shared geometries: "+link(TR/"graphene.xyz",base)+" · "+link(TR/"graphene.cif",base)+". Full p-DZ7 4B shortcut: "+link(TR/"graphene.transport.job",base)+" · "+link(TR/"graphene_cif.transport.job",base)+".","","## Independent electrodes and scattering region (15 paired cases)","","Run **either** job directly with `python -m pyaehmop PATH --workers 4`. No manual conversion is required. The CIF jobs use ordered P1 region files with a shared padded box and origin.json, not three independent bulk CIF cells. The physical repeats remain in the job. The XYZ jobs use the original Cartesian geometries.","","| Case | XYZ input | CIF input | CIF region files | Explanation / results |","|---|---|---|---|---|"]
+    lines += ["","Shared geometries: "+link(TR/"graphene.xyz",base)+" · "+link(TR/"graphene.cif",base)+". Full p-DZ7 4B shortcut: "+link(TR/"graphene.transport.job",base)+" · "+link(TR/"graphene_cif.transport.job",base)+".","","## Independent electrodes and scattering region (15 paired cases)","","Run **either** job directly with `python -m pyaehmop PATH --workers 4`. No manual conversion is required. The CIF jobs use ordered P1 region files with a shared padded box and coordinate frame (no auxiliary JSON), not three independent bulk CIF cells. The physical repeats remain in the job. The XYZ jobs use the original Cartesian geometries.","","| Case | XYZ input | CIF input | CIF region files | Explanation / results |","|---|---|---|---|---|"]
     dev=ROOT/"examples/devices";tut=ROOT/"examples/tutorials"
     names=["pristine","vacancy","adsorbate","asymmetric","graphene_mos2","spin","soc","spin_soc","graphene_x","nanoribbon","wide_vacancy","potential_barrier","spin_parallel","spin_antiparallel","graphene_mos2_graphene"]
     for n in names:
@@ -21,7 +21,7 @@ def main():
         src=p.parent/"cif_sources"/p.name.removesuffix(".device.job")
         expl=dev/"README.md" if old else p.parent/"README.md"
         o=options(p)
-        lines.append("| "+n+" | "+link(p,base)+" | "+link(q,base)+" | "+link(src,base,"L/D/R + origin")+" | "+link(expl,base,"Guide")+" |")
+        lines.append("| "+n+" | "+link(p,base)+" | "+link(q,base)+" | "+link(src,base,"L/D/R")+" | "+link(expl,base,"Guide")+" |")
     lines += ["","## Electronic structure and spin/SOC","","These are the original molecular/crystalline inputs, not transport jobs. Standard XYZ is Cartesian and nonperiodic for molecules, CIF provides crystal cell and fractional sites, ASE/POSCAR retain their lattice. All remain in the full tutorial.","","| Case | Executable input |","|---|---|"]
     for p in sorted((ROOT/"pyaehmop/examples_friendly").glob("*.job")):
         lines.append(f"| {p.stem} | {link(p,base)} |")

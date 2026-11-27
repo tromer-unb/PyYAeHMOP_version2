@@ -17,20 +17,25 @@ def main():
     for p in jobs:
         q=p.with_name(p.name.replace(".device.job","_cif.device.job"))
         o,c=options(p),options(q)
-        metadata=json.loads((q.parent/c["cif_origin"]).read_text())
+        assert "cif_origin" not in c
         params=load_parameter_selection(c.get("parameters","default"),q.parent)
         err=0.
+        shift=None
+        common_cell=None
         for k in ("electrode_left","scattering_region","electrode_right"):
             s,x=xyz(p.parent/o[k])
-            st=read_device_cif(q.parent/c[k],params,metadata)
+            st,cell=read_device_cif(q.parent/c[k],params,return_cell=True)
+            if common_cell is None: common_cell=cell
+            else: np.testing.assert_allclose(cell,common_cell,atol=1e-8,rtol=0)
             y=np.array([a.position for a in st.atoms])
             assert [v.upper() for v in s]==[a.symbol.upper() for a in st.atoms],(p,k,s,[a.symbol for a in st.atoms])
-            err=max(err,float(np.max(abs(x-y))))
-            assert np.allclose(x,y,atol=1e-10,rtol=0)
+            if shift is None: shift=y[0]-x[0]
+            err=max(err,float(np.max(abs(x+shift-y))))
+            assert np.allclose(x+shift,y,atol=1e-10,rtol=0)
         a=p.parent/o["output"]
         if not (a/"transmission.dat").exists():a=run(p)
         b=run(q)
-        summary[str(p.relative_to(ROOT))]={"max_coordinate_error_A":err,**compare(a,b)}
+        summary[str(p.relative_to(ROOT))]={"max_coordinate_error_A":err,"global_translation_A":shift.tolist(),**compare(a,b)}
         if (a/"current_spin.dat").exists():
             x,y=np.loadtxt(a/"current_spin.dat"),np.loadtxt(b/"current_spin.dat")
             assert np.allclose(x,y,atol=2e-10,rtol=2e-6)

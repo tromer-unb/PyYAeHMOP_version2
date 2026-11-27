@@ -13,7 +13,7 @@ python -m pyaehmop examples/devices/graphene_mos2.device.job
 python -m pyaehmop examples/devices/graphene_mos2_cif.device.job
 ```
 
-Both formats run directly. Explicit device CIFs use a common ordered P1 box and origin metadata; physical lead repeat vectors remain in the job. See [CIF/XYZ guide](docs/transport-cif.md).
+Both formats run directly. Explicit device CIFs use a common ordered P1 box and coordinate frame (no auxiliary JSON); physical lead repeat vectors remain in the job. See [CIF/XYZ guide](docs/transport-cif.md).
 
 **Start here:** [Illustrated PDF tutorial](docs/PyYAeHMOP_v2_tutorial.pdf) · [Runnable examples](examples/tutorials/README.md) · [Installation](docs/installation.md) · [Device geometry](docs/device-geometry.md) · [Parameter sources](docs/parameters.md)
 

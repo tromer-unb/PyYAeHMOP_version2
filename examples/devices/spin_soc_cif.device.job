@@ -1,6 +1,5 @@
 # Direct CIF input: common P1 coordinate box, physical repeats specified below.
 structure_format = cif
-cif_origin = cif_sources/spin_soc/origin.json
 electrode_left = cif_sources/spin_soc/left.cif
 electrode_right = cif_sources/spin_soc/right.cif
 scattering_region = cif_sources/spin_soc/device.cif

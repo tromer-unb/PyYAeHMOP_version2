@@ -1,6 +1,6 @@
 ## Run with XYZ or CIF
 
-[XYZ input](run.device.job) · [CIF input](run_cif.device.job) · [CIF geometries and origin](cif_sources/run/)
+[XYZ input](run.device.job) · [CIF input](run_cif.device.job) · [CIF geometries](cif_sources/run/)
 
 ```bash
 python -m pyaehmop examples/tutorials/spin_parallel/run.device.job --workers 4

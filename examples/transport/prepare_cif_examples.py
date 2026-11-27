@@ -4,7 +4,6 @@ Uniform graphene uses a physical periodic cell with vacuum. Explicit device
 CIFs are P1 coordinate interchange boxes, NOT the bulk electrode lattice.
 """
 from pathlib import Path
-import json
 import numpy as np
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -41,7 +40,7 @@ def main():
         o.update(structure_format="cif",structure="graphene.cif" if path.parent==TR else "../../transport/graphene.cif",images="5 1 4",transport_axis="2",transverse_kpoints=o["transverse_kpoints"]+" 1",output=o["output"]+"_cif")
         dump_job(path.with_name(path.name.replace(".transport.job","_cif.transport.job")),o,"CIF has a 30 angstrom vacuum cell along b (y); transport along c (z).")
     # Explicit devices use independent regions in one Cartesian frame.
-    # A common padded CIF box prevents wraparound; retain the origin separately.
+    # A common padded CIF box prevents wraparound; a global translation is harmless.
     jobs=[*sorted((ROOT/"examples/devices").glob("*.device.job")),*sorted((ROOT/"examples/tutorials").glob("*/run.device.job"))]
     for path in jobs:
         if path.name.endswith("_cif.device.job"): continue
@@ -54,9 +53,8 @@ def main():
         lengths=coords.max(axis=0)-origin+5
         for label,(s,p) in zip(("left","device","right"),data):
             write_cif(folder/(label+".cif"),s,p-origin,lengths)
-        (folder/"origin.json").write_text(json.dumps({"cartesian_origin_A":origin.tolist(),"box_lengths_A":lengths.tolist(),"source_job":path.name,"note":"Common padded coordinate interchange box, not a physical electrode lattice; use the original job repeats."},indent=2)+"\n")
 
-        direct={"structure_format":"cif","cif_origin":str((folder/"origin.json").relative_to(path.parent)),**o}
+        direct={"structure_format":"cif",**o}
         for key,label in zip(keys,("left","device","right")):
             direct[key]=str((folder/(label+".cif")).relative_to(path.parent))
         direct["output"]="results/cif_direct/"+name

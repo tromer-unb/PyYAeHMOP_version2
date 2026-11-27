@@ -19,25 +19,25 @@ Shared geometries: [graphene.xyz](transport/graphene.xyz) · [graphene.cif](tran
 
 ## Independent electrodes and scattering region (15 paired cases)
 
-Run **either** job directly with `python -m pyaehmop PATH --workers 4`. No manual conversion is required. The CIF jobs use ordered P1 region files with a shared padded box and origin.json, not three independent bulk CIF cells. The physical repeats remain in the job. The XYZ jobs use the original Cartesian geometries.
+Run **either** job directly with `python -m pyaehmop PATH --workers 4`. No manual conversion is required. The CIF jobs use ordered P1 region files with a shared padded box and coordinate frame (no auxiliary JSON), not three independent bulk CIF cells. The physical repeats remain in the job. The XYZ jobs use the original Cartesian geometries.
 
 | Case | XYZ input | CIF input | CIF region files | Explanation / results |
 |---|---|---|---|---|
-| pristine | [pristine.device.job](devices/pristine.device.job) | [pristine_cif.device.job](devices/pristine_cif.device.job) | [L/D/R + origin](devices/cif_sources/pristine) | [Guide](devices/README.md) |
-| vacancy | [vacancy.device.job](devices/vacancy.device.job) | [vacancy_cif.device.job](devices/vacancy_cif.device.job) | [L/D/R + origin](devices/cif_sources/vacancy) | [Guide](devices/README.md) |
-| adsorbate | [adsorbate.device.job](devices/adsorbate.device.job) | [adsorbate_cif.device.job](devices/adsorbate_cif.device.job) | [L/D/R + origin](devices/cif_sources/adsorbate) | [Guide](devices/README.md) |
-| asymmetric | [asymmetric.device.job](devices/asymmetric.device.job) | [asymmetric_cif.device.job](devices/asymmetric_cif.device.job) | [L/D/R + origin](devices/cif_sources/asymmetric) | [Guide](devices/README.md) |
-| graphene_mos2 | [graphene_mos2.device.job](devices/graphene_mos2.device.job) | [graphene_mos2_cif.device.job](devices/graphene_mos2_cif.device.job) | [L/D/R + origin](devices/cif_sources/graphene_mos2) | [Guide](devices/README.md) |
-| spin | [spin.device.job](devices/spin.device.job) | [spin_cif.device.job](devices/spin_cif.device.job) | [L/D/R + origin](devices/cif_sources/spin) | [Guide](devices/README.md) |
-| soc | [soc.device.job](devices/soc.device.job) | [soc_cif.device.job](devices/soc_cif.device.job) | [L/D/R + origin](devices/cif_sources/soc) | [Guide](devices/README.md) |
-| spin_soc | [spin_soc.device.job](devices/spin_soc.device.job) | [spin_soc_cif.device.job](devices/spin_soc_cif.device.job) | [L/D/R + origin](devices/cif_sources/spin_soc) | [Guide](devices/README.md) |
-| graphene_x | [run.device.job](tutorials/graphene_x/run.device.job) | [run_cif.device.job](tutorials/graphene_x/run_cif.device.job) | [L/D/R + origin](tutorials/graphene_x/cif_sources/run) | [Guide](tutorials/graphene_x/README.md) |
-| nanoribbon | [run.device.job](tutorials/nanoribbon/run.device.job) | [run_cif.device.job](tutorials/nanoribbon/run_cif.device.job) | [L/D/R + origin](tutorials/nanoribbon/cif_sources/run) | [Guide](tutorials/nanoribbon/README.md) |
-| wide_vacancy | [run.device.job](tutorials/wide_vacancy/run.device.job) | [run_cif.device.job](tutorials/wide_vacancy/run_cif.device.job) | [L/D/R + origin](tutorials/wide_vacancy/cif_sources/run) | [Guide](tutorials/wide_vacancy/README.md) |
-| potential_barrier | [run.device.job](tutorials/potential_barrier/run.device.job) | [run_cif.device.job](tutorials/potential_barrier/run_cif.device.job) | [L/D/R + origin](tutorials/potential_barrier/cif_sources/run) | [Guide](tutorials/potential_barrier/README.md) |
-| spin_parallel | [run.device.job](tutorials/spin_parallel/run.device.job) | [run_cif.device.job](tutorials/spin_parallel/run_cif.device.job) | [L/D/R + origin](tutorials/spin_parallel/cif_sources/run) | [Guide](tutorials/spin_parallel/README.md) |
-| spin_antiparallel | [run.device.job](tutorials/spin_antiparallel/run.device.job) | [run_cif.device.job](tutorials/spin_antiparallel/run_cif.device.job) | [L/D/R + origin](tutorials/spin_antiparallel/cif_sources/run) | [Guide](tutorials/spin_antiparallel/README.md) |
-| graphene_mos2_graphene | [run.device.job](tutorials/graphene_mos2_graphene/run.device.job) | [run_cif.device.job](tutorials/graphene_mos2_graphene/run_cif.device.job) | [L/D/R + origin](tutorials/graphene_mos2_graphene/cif_sources/run) | [Guide](tutorials/graphene_mos2_graphene/README.md) |
+| pristine | [pristine.device.job](devices/pristine.device.job) | [pristine_cif.device.job](devices/pristine_cif.device.job) | [L/D/R](devices/cif_sources/pristine) | [Guide](devices/README.md) |
+| vacancy | [vacancy.device.job](devices/vacancy.device.job) | [vacancy_cif.device.job](devices/vacancy_cif.device.job) | [L/D/R](devices/cif_sources/vacancy) | [Guide](devices/README.md) |
+| adsorbate | [adsorbate.device.job](devices/adsorbate.device.job) | [adsorbate_cif.device.job](devices/adsorbate_cif.device.job) | [L/D/R](devices/cif_sources/adsorbate) | [Guide](devices/README.md) |
+| asymmetric | [asymmetric.device.job](devices/asymmetric.device.job) | [asymmetric_cif.device.job](devices/asymmetric_cif.device.job) | [L/D/R](devices/cif_sources/asymmetric) | [Guide](devices/README.md) |
+| graphene_mos2 | [graphene_mos2.device.job](devices/graphene_mos2.device.job) | [graphene_mos2_cif.device.job](devices/graphene_mos2_cif.device.job) | [L/D/R](devices/cif_sources/graphene_mos2) | [Guide](devices/README.md) |
+| spin | [spin.device.job](devices/spin.device.job) | [spin_cif.device.job](devices/spin_cif.device.job) | [L/D/R](devices/cif_sources/spin) | [Guide](devices/README.md) |
+| soc | [soc.device.job](devices/soc.device.job) | [soc_cif.device.job](devices/soc_cif.device.job) | [L/D/R](devices/cif_sources/soc) | [Guide](devices/README.md) |
+| spin_soc | [spin_soc.device.job](devices/spin_soc.device.job) | [spin_soc_cif.device.job](devices/spin_soc_cif.device.job) | [L/D/R](devices/cif_sources/spin_soc) | [Guide](devices/README.md) |
+| graphene_x | [run.device.job](tutorials/graphene_x/run.device.job) | [run_cif.device.job](tutorials/graphene_x/run_cif.device.job) | [L/D/R](tutorials/graphene_x/cif_sources/run) | [Guide](tutorials/graphene_x/README.md) |
+| nanoribbon | [run.device.job](tutorials/nanoribbon/run.device.job) | [run_cif.device.job](tutorials/nanoribbon/run_cif.device.job) | [L/D/R](tutorials/nanoribbon/cif_sources/run) | [Guide](tutorials/nanoribbon/README.md) |
+| wide_vacancy | [run.device.job](tutorials/wide_vacancy/run.device.job) | [run_cif.device.job](tutorials/wide_vacancy/run_cif.device.job) | [L/D/R](tutorials/wide_vacancy/cif_sources/run) | [Guide](tutorials/wide_vacancy/README.md) |
+| potential_barrier | [run.device.job](tutorials/potential_barrier/run.device.job) | [run_cif.device.job](tutorials/potential_barrier/run_cif.device.job) | [L/D/R](tutorials/potential_barrier/cif_sources/run) | [Guide](tutorials/potential_barrier/README.md) |
+| spin_parallel | [run.device.job](tutorials/spin_parallel/run.device.job) | [run_cif.device.job](tutorials/spin_parallel/run_cif.device.job) | [L/D/R](tutorials/spin_parallel/cif_sources/run) | [Guide](tutorials/spin_parallel/README.md) |
+| spin_antiparallel | [run.device.job](tutorials/spin_antiparallel/run.device.job) | [run_cif.device.job](tutorials/spin_antiparallel/run_cif.device.job) | [L/D/R](tutorials/spin_antiparallel/cif_sources/run) | [Guide](tutorials/spin_antiparallel/README.md) |
+| graphene_mos2_graphene | [run.device.job](tutorials/graphene_mos2_graphene/run.device.job) | [run_cif.device.job](tutorials/graphene_mos2_graphene/run_cif.device.job) | [L/D/R](tutorials/graphene_mos2_graphene/cif_sources/run) | [Guide](tutorials/graphene_mos2_graphene/README.md) |
 
 ## Electronic structure and spin/SOC
 

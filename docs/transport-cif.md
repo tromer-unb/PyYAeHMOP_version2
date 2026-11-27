@@ -73,7 +73,6 @@ Different electrodes:
 The CIF job differs only in geometry selection and output path. Example:
 
     structure_format = cif
-    cif_origin = cif_sources/pristine/origin.json
     electrode_left = cif_sources/pristine/left.cif
     scattering_region = cif_sources/pristine/device.cif
     electrode_right = cif_sources/pristine/right.cif
@@ -81,18 +80,19 @@ The CIF job differs only in geometry selection and output path. Example:
     left_repeat = 0 0 8.52
     right_repeat = 0 0 8.52
 
-In the XYZ job, structure_format defaults to xyz, cif_origin is absent,
+In the XYZ job, structure_format defaults to xyz,
 and the three paths end in .xyz. All remaining physical and numerical
-parameters are identical. The CIF reader restores global Cartesian
-positions internally (including the common offset), preserves atom
-order, and ignores the artificial box periodicity. Only the explicit
+parameters are identical. The CIF reader converts fractional coordinates into a common Cartesian
+frame, preserves atom order, and ignores the artificial box periodicity.
+A global translation of all regions leaves transport unchanged; no origin
+file is needed. Only the explicit
 repeat/transverse vectors define the physical periodicity of devices.
 
 ### Why the common box matters
 
 All shipped three-region CIFs are fully occupied P1 **coordinate
 interchange boxes**, not physical bulk electrode unit cells. They share
-one orthogonal padded box and origin.json. The box keeps all atom sites
+one orthogonal padded box and coordinate frame. The box keeps all atom sites
 away from periodic wrapping; its lengths must not be substituted for
 left_repeat or right_repeat. The parser rejects non-P1, partially occupied
 sites and mismatched cells. For magnetic jobs preserve the site ordering:
@@ -106,8 +106,8 @@ cif_sources/<name>/. Results of CIF jobs are written under results/cif_direct/.
 For a new device, start with physically meaningful bulk CIFs, expand
 symmetry and build sufficiently thick principal layers, choose a common
 transverse cell, place all three regions in one Cartesian frame, and
-export either XYZ or three ordered P1 CIFs in the same padded box with
-matching origin metadata. A bulk CIF alone does not build a heterojunction.
+export either XYZ or three ordered P1 CIFs in the same padded box.
+Do not independently center or wrap the three regions. A bulk CIF alone does not build a heterojunction.
 See [device geometry](device-geometry.md). The optional previous converter
 remains available for comparing exported XYZ files:
 
@@ -115,7 +115,8 @@ remains available for comparing exported XYZ files:
 
 ### Verification
 
-The direct input validation compares the CIF and XYZ coordinates, all
+The direct input validation compares the CIF and XYZ coordinates after a
+single common global translation, all
 three spectra and collinear current channels where present. See
 [direct validation](../examples/transport/cif_reference/direct_device_validation.json).
 Run from the repository root:
@@ -160,3 +161,13 @@ native-library state. An earlier single-process rerun was interrupted
 by a segmentation fault; the fresh-process validation completed.
 
 Native CIF device validation completed for all 15 cases (PBS 62874, exit 0). Maximum recorded coordinate, T, G and I differences were zero; collinear current channels also matched. Only the geometry reader was added; the NEGF Hamiltonian and solver are unchanged.
+
+Legacy jobs may still use the optional cif_origin key with their existing metadata file. New examples do not need or distribute this file. If migrating an old example to the new inputs, use the new job without the key.
+
+Origin-free direct CIF validation (PBS 62879, exit 0): all 15 device jobs
+ran without auxiliary origin files. After one common global translation,
+the maximum coordinate difference was 3.56e-15 Å, max absolute T
+difference 1.04e-11, max G difference 8.02e-16 S and max I difference
+1.56e-17 A. Regression job 62880 passed 66 core and 17 spin tests
+(two core tests skipped), including checks for legacy metadata and
+mismatched CIF cells. These differences are numerical roundoff.

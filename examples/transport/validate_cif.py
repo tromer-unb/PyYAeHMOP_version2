@@ -45,11 +45,13 @@ def main():
         if args.resume and str(p.relative_to(ROOT)) in summary["devices"]: continue
         q=convert(p);o=options(p);new=options(q)
         err=0.
+        shift=None
         for k in ("electrode_left","scattering_region","electrode_right"):
             s,x=xyz(p.parent/o[k]);t,y=xyz(q.parent/new[k])
             assert s==t,(p,k,"atom order")
-            err=max(err,float(np.max(abs(x-y))))
-            assert np.allclose(x,y,atol=1e-8,rtol=0),(p,k,err)
+            if shift is None: shift=y[0]-x[0]
+            err=max(err,float(np.max(abs(x+shift-y))))
+            assert np.allclose(x+shift,y,atol=1e-8,rtol=0),(p,k,err)
         a=p.parent/o["output"]
         if not (a/"transmission.dat").exists(): a=run(p)
         b=run(q)

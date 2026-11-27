@@ -8,11 +8,12 @@ from .parameter_files import load_parameter_selection
 from .device_transport import Region,build_device,spectrum_device
 from .transport_observables import conductance,current_voltage
 
-def read_device_cif(path,params,metadata):
+def read_device_cif(path,params,metadata=None,*,return_cell=False):
     """Read a fully occupied P1 interchange CIF in a common Cartesian box.
 
-    The artificial CIF cell is not a lead repeat. The required common origin
-    metadata restores the original frame; explicit job vectors set periodicity.
+    The artificial CIF cell is not a lead repeat. All three CIFs must share
+    the same box and coordinate frame. A global translation is irrelevant;
+    legacy origin metadata is optional.
     """
     from ase.io import read
     atoms=read(path,format="cif",index=0)
@@ -22,15 +23,22 @@ def read_device_cif(path,params,metadata):
     for site,comps in atoms.info.get("occupancy",{}).items():
         if len(comps)!=1 or abs(float(next(iter(comps.values())))-1)>1e-6:
             raise ValueError(f"Device CIF requires fully occupied ordered sites: {site}")
-    origin=np.asarray(metadata["cartesian_origin_A"],float)
-    lengths=np.asarray(metadata["box_lengths_A"],float)
-    if origin.shape!=(3,) or lengths.shape!=(3,) or not np.isfinite(origin).all() or not np.isfinite(lengths).all() or np.any(lengths<=0):
-        raise ValueError("CIF origin/box must be finite three-component vectors; box lengths must be positive")
-    if not np.allclose(np.asarray(atoms.cell),np.diag(lengths),atol=1e-8,rtol=0):
-        raise ValueError("CIF region cell does not match the common orthogonal box in cif_origin")
+    cell=np.asarray(atoms.cell,float)
+    lengths=np.diag(cell)
+    if not np.isfinite(cell).all() or np.any(lengths<=0) or not np.allclose(cell,np.diag(lengths),atol=1e-8,rtol=0):
+        raise ValueError("Device CIF requires a positive orthogonal common box")
+    origin=np.zeros(3)
+    if metadata is not None:
+        origin=np.asarray(metadata["cartesian_origin_A"],float)
+        legacy_lengths=np.asarray(metadata["box_lengths_A"],float)
+        if origin.shape!=(3,) or legacy_lengths.shape!=(3,) or not np.isfinite(origin).all() or not np.isfinite(legacy_lengths).all() or np.any(legacy_lengths<=0):
+            raise ValueError("Invalid legacy CIF origin or box lengths")
+        if not np.allclose(cell,np.diag(legacy_lengths),atol=1e-8,rtol=0):
+            raise ValueError("CIF region cell does not match legacy origin box")
     atoms.positions=np.round(atoms.positions+origin,12)
     atoms.pbc=False
-    return from_ase_atoms(atoms,Path(path).stem,parameter_table=params)
+    structure=from_ase_atoms(atoms,Path(path).stem,parameter_table=params)
+    return (structure,cell) if return_cell else structure
 
 def run_job(path,workers=None):
     path=Path(path).resolve(); base=path.parent; o={}
@@ -53,13 +61,19 @@ def run_job(path,workers=None):
     if (spin or soc) and not magnet: raise ValueError("Explicit calibrated magnetic_parameters JSON required")
     kind=o.get("structure_format","xyz").lower()
     if kind not in ("xyz","cif"): raise ValueError("Device structure_format must be xyz or cif")
-    if kind=="cif" and "cif_origin" not in o: raise ValueError("Device CIF requires cif_origin metadata for the common box")
     if kind=="xyz" and "cif_origin" in o: raise ValueError("cif_origin is only valid for device CIF")
-    metadata=json.loads((base/o["cif_origin"]).read_text()) if kind=="cif" else None
+    metadata=json.loads((base/o["cif_origin"]).read_text()) if "cif_origin" in o else None
     regions=[]
+    common_cell=None
     for label,key in (("left","electrode_left"),("device","scattering_region"),("right","electrode_right")):
         source=base/o[key]
-        st=read_device_cif(source,params,metadata) if kind=="cif" else read_xyz(source,params)
+        if kind=="cif":
+            st,cell=read_device_cif(source,params,metadata,return_cell=True)
+            if common_cell is None: common_cell=cell
+            elif not np.allclose(cell,common_cell,atol=1e-8,rtol=0):
+                raise ValueError("All three device CIFs must share the same cell and Cartesian frame")
+        else:
+            st=read_xyz(source,params)
         cfg=magnet.get(label,{})
         if set(cfg)-{"offset_eV","exchange_eV","soc_eV"}: raise ValueError("Unknown magnetic region key")
         regions.append(Region(st.atoms,float(cfg.get("offset_eV",0)),cfg.get("exchange_eV",{}) if spin else {},cfg.get("soc_eV",{}) if soc else {}))
