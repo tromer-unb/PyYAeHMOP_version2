@@ -1,0 +1,95 @@
+{
+  "examples/devices/adsorbate.device.job": {
+    "max_coordinate_error_A": 0.0,
+    "transmission.dat": 0.0,
+    "conductance.dat": 0.0,
+    "current_voltage.dat": 0.0
+  },
+  "examples/devices/asymmetric.device.job": {
+    "max_coordinate_error_A": 0.0,
+    "transmission.dat": 0.0,
+    "conductance.dat": 0.0,
+    "current_voltage.dat": 0.0
+  },
+  "examples/devices/graphene_mos2.device.job": {
+    "max_coordinate_error_A": 0.0,
+    "transmission.dat": 0.0,
+    "conductance.dat": 0.0,
+    "current_voltage.dat": 0.0
+  },
+  "examples/devices/pristine.device.job": {
+    "max_coordinate_error_A": 0.0,
+    "transmission.dat": 0.0,
+    "conductance.dat": 0.0,
+    "current_voltage.dat": 0.0
+  },
+  "examples/devices/soc.device.job": {
+    "max_coordinate_error_A": 0.0,
+    "transmission.dat": 0.0,
+    "conductance.dat": 0.0,
+    "current_voltage.dat": 0.0
+  },
+  "examples/devices/spin.device.job": {
+    "max_coordinate_error_A": 0.0,
+    "transmission.dat": 0.0,
+    "conductance.dat": 0.0,
+    "current_voltage.dat": 0.0,
+    "current_spin.dat": 0.0
+  },
+  "examples/devices/spin_soc.device.job": {
+    "max_coordinate_error_A": 0.0,
+    "transmission.dat": 0.0,
+    "conductance.dat": 0.0,
+    "current_voltage.dat": 0.0
+  },
+  "examples/devices/vacancy.device.job": {
+    "max_coordinate_error_A": 0.0,
+    "transmission.dat": 0.0,
+    "conductance.dat": 0.0,
+    "current_voltage.dat": 0.0
+  },
+  "examples/tutorials/graphene_mos2_graphene/run.device.job": {
+    "max_coordinate_error_A": 0.0,
+    "transmission.dat": 0.0,
+    "conductance.dat": 0.0,
+    "current_voltage.dat": 0.0
+  },
+  "examples/tutorials/graphene_x/run.device.job": {
+    "max_coordinate_error_A": 0.0,
+    "transmission.dat": 0.0,
+    "conductance.dat": 0.0,
+    "current_voltage.dat": 0.0
+  },
+  "examples/tutorials/nanoribbon/run.device.job": {
+    "max_coordinate_error_A": 0.0,
+    "transmission.dat": 0.0,
+    "conductance.dat": 0.0,
+    "current_voltage.dat": 0.0
+  },
+  "examples/tutorials/potential_barrier/run.device.job": {
+    "max_coordinate_error_A": 0.0,
+    "transmission.dat": 0.0,
+    "conductance.dat": 0.0,
+    "current_voltage.dat": 0.0
+  },
+  "examples/tutorials/spin_antiparallel/run.device.job": {
+    "max_coordinate_error_A": 0.0,
+    "transmission.dat": 0.0,
+    "conductance.dat": 0.0,
+    "current_voltage.dat": 0.0,
+    "current_spin.dat": 0.0
+  },
+  "examples/tutorials/spin_parallel/run.device.job": {
+    "max_coordinate_error_A": 0.0,
+    "transmission.dat": 0.0,
+    "conductance.dat": 0.0,
+    "current_voltage.dat": 0.0,
+    "current_spin.dat": 0.0
+  },
+  "examples/tutorials/wide_vacancy/run.device.job": {
+    "max_coordinate_error_A": 0.0,
+    "transmission.dat": 0.0,
+    "conductance.dat": 0.0,
+    "current_voltage.dat": 0.0
+  }
+}

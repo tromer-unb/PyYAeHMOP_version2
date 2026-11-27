@@ -1,0 +1,27 @@
+# Direct CIF input: common P1 coordinate box, physical repeats specified below.
+structure_format = cif
+cif_origin = cif_sources/run/origin.json
+electrode_left = cif_sources/run/left.cif
+scattering_region = cif_sources/run/device.cif
+electrode_right = cif_sources/run/right.cif
+transverse_vectors = 2.459512 0 0
+left_repeat = 0 0 8.52
+right_repeat = 0 0 8.52
+parameters = ../../transport/carbon_pdz7_4B.dat
+K = 2.0068527138311567
+cutoff = 4.5
+quadrature = 16 12 8
+energy_reference_eV = -18.800896640571224
+energy_min = -2
+energy_max = 2
+energy_points = 81
+transverse_kpoints = 15
+workers = 4
+calculations = transmission, conductance, iv
+temperature = 300
+bias_min = -2
+bias_max = 2
+bias_points = 21
+output = results/cif_direct/run
+plots = true
+magnetic_parameters = potentials.json

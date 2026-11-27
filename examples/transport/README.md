@@ -1,3 +1,7 @@
+**[Complete paired XYZ/CIF input catalog](../README.md)** — all transport cases can now be run directly with either format.
+
+**Run the uniform graphene benchmark:** [XYZ job](graphene.transport.job) · [CIF job](graphene_cif.transport.job) · [XYZ geometry](graphene.xyz) · [CIF geometry](graphene.cif). Use the same command `python -m pyaehmop PATH --workers 4` for either.
+
 # Extended Hückel quantum transport (experimental)
 
 The independent Python transport kernel uses the existing PyYAeHMOP real-space overlap and weighted Hückel Hamiltonian, retaining nonorthogonality. Principal-layer folding preserves all retained longitudinal couplings. Retarded surface Green functions are evaluated by iterative decimation; the Caroli trace uses energy-dependent couplings zS-H. Transmission is per spin, averaged over transverse k. No SIESTA, TBtrans, native YAeHMOP or DFT input is needed for prediction.
@@ -69,4 +73,4 @@ Outputs: transmission.dat (per spin), transmission_k.npz, conductance.dat (S, ze
 
 ## CIF alternatives for transport
 
-[CIF and XYZ transport guide](../../docs/transport-cif.md) explains the paired uniform inputs and how to convert the three-region CIF sources for all explicit device examples. The original XYZ examples remain unchanged.
+[CIF and XYZ transport guide](../../docs/transport-cif.md) explains the paired uniform inputs and how to run all three-region CIF jobs directly (the optional converter is retained). The original XYZ examples remain unchanged.

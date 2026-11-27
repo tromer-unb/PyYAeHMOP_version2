@@ -1,3 +1,14 @@
+## Run with XYZ or CIF
+
+[XYZ input](run.device.job) · [CIF input](run_cif.device.job) · [CIF geometries and origin](cif_sources/run/)
+
+```bash
+python -m pyaehmop examples/tutorials/nanoribbon/run.device.job --workers 4
+python -m pyaehmop examples/tutorials/nanoribbon/run_cif.device.job --workers 4
+```
+
+Both jobs use identical numerical settings and write separate results. The CIF box is for coordinate interchange only; the repeats in the input define the actual electrode periodicity.
+
 # Nanoribbon
 
 Finite-width unpassivated carbon strip; only the longitudinal vector is periodic. Blank transverse_kpoints means no transverse k integration. No spin or edge relaxation is included.

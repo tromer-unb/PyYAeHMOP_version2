@@ -1,3 +1,5 @@
+**[Complete paired XYZ/CIF input catalog](../../README.md)** — all transport cases can now be run directly with either format.
+
 # Reproduce all six graphene BandFit calibrations and transport runs
 
 The reference contains the six frontier bands of the original PBE/DZP
@@ -65,4 +67,4 @@ All six full jobs also completed (PBS 62858). Compare [full T(E)](reference/full
 
 ## CIF alternatives for transport
 
-[CIF and XYZ transport guide](../../../docs/transport-cif.md) explains the paired uniform inputs and how to convert the three-region CIF sources for all explicit device examples. The original XYZ examples remain unchanged.
+[CIF and XYZ transport guide](../../../docs/transport-cif.md) explains the paired uniform inputs and how to run all three-region CIF jobs directly (the optional converter is retained). The original XYZ examples remain unchanged.

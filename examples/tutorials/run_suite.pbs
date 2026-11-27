@@ -11,7 +11,8 @@ mkdir -p examples/tutorials/results
 status=examples/tutorials/results/${SUITE:-devices}_status.txt
 : > "$status"
 case "${SUITE:-devices}" in
- devices) files=(examples/tutorials/*/run.device.job examples/devices/*.device.job);;
+ devices) files=(examples/tutorials/*/run.device.job); for f in examples/devices/*.device.job; do [[ "$f" == *_cif.device.job ]] || files+=("$f"); done;;
+ devices_cif) files=(examples/tutorials/*/run_cif.device.job examples/devices/*_cif.device.job);;
  bandfit) files=(examples/tutorials/bandfit/*_smoke.transport.job);;
  full_bandfit) files=(examples/tutorials/bandfit/*B.transport.job);;
  electronic) files=(pyaehmop/examples_friendly/*.job pyaehmop/SPIN_TEST/examples/*.spin);;

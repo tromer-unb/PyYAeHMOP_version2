@@ -41,6 +41,7 @@ def main():
         (out/"validation.json").write_text(json.dumps(summary,indent=2)+"\n")
     jobs=[*sorted((ROOT/"examples/devices").glob("*.device.job")),*sorted((ROOT/"examples/tutorials").glob("*/run.device.job"))]
     for p in jobs:
+        if p.name.endswith("_cif.device.job"): continue
         if args.resume and str(p.relative_to(ROOT)) in summary["devices"]: continue
         q=convert(p);o=options(p);new=options(q)
         err=0.

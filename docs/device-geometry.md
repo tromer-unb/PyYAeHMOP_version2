@@ -1,3 +1,5 @@
+**[Complete paired XYZ/CIF input catalog](../examples/README.md)** — all transport cases can now be run directly with either format.
+
 # Building a two-terminal device
 
 [PDF tutorial](PyYAeHMOP_v2_tutorial.pdf) · [Example index](../examples/tutorials/README.md)
@@ -7,7 +9,7 @@
 - `.transport.job`: a uniform periodic material. Specify one cell, its
   lattice vectors and the zero-based transport-axis index. The program
   generates identical electrodes and a central principal layer automatically.
-- `.device.job`: three explicit Cartesian XYZ files. Each contact may have
+- `.device.job`: three explicit XYZ or ordered P1 CIF files with a common Cartesian frame. Each contact may have
   its own species, atom count and longitudinal repeat; the device may be
   defective, molecular or heterogeneous. These are independent geometries,
   NOT three independent energy zeros. All use a common parameter convention
@@ -111,4 +113,4 @@ validated geometry, parameters, energy alignment and numerical convergence.
 
 ## CIF alternatives for transport
 
-[CIF source files and conversion](transport-cif.md#3-explicit-devices-cif-source-files-xyz-solver-input) explains the paired uniform inputs and how to convert the three-region CIF sources for all explicit device examples. The original XYZ examples remain unchanged.
+[Direct CIF jobs and optional conversion](transport-cif.md#3-explicit-devices-direct-xyz-and-cif-jobs) explains the paired uniform inputs and how to run all three-region CIF jobs directly (the optional converter is retained). The original XYZ examples remain unchanged.

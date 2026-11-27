@@ -85,6 +85,12 @@ def code(f,y,text,size=8.2):
     f.patches.append(Rectangle((.075,y-h),.85,h,transform=f.transFigure,facecolor=LIGHT,edgecolor="#d4e0e6",lw=.5))
     for i,l in enumerate(lines):f.text(.09,y-.013-i*.019,l,fontfamily="DejaVu Sans Mono",fontsize=size,color=NAVY,va="top")
     return y-h-.022
+def compact_code(f,y,text,size=8):
+    lines=text.strip("\n").splitlines()
+    h=.0158*len(lines)+.019
+    f.patches.append(Rectangle((.075,y-h),.85,h,transform=f.transFigure,facecolor=LIGHT,edgecolor="#d4e0e6",lw=.5))
+    for i,line in enumerate(lines):f.text(.09,y-.009-i*.0158,line,fontfamily="DejaVu Sans Mono",fontsize=size,color=NAVY,va="top")
+    return y-h-.016
 def save(pdf,f):pdf.savefig(f);plt.close(f)
 def tblock(f,y,title,body):
     return para(f,head(f,y,title),body)
@@ -106,7 +112,7 @@ def case(pdf,name,title,desc,old=True,side=False):
     rel=p.relative_to(ROOT).as_posix();o=opts(p)
     f=page(pdf,"Device examples",title,"Reproduce this case directly from the source checkout.")
     y=para(f,.851,desc)
-    y=code(f,y,"python -m pyaehmop "+rel+" --workers 4",7.6)
+    y=code(f,y,"# XYZ and CIF alternatives (choose one)\npython -m pyaehmop "+rel+" --workers 4\npython -m pyaehmop "+rel.replace(".device.job","_cif.device.job")+" --workers 4",7.0)
     # fixed geometry and plots below intro
     ax=f.add_axes([.12,.515,.78,.155]);geo(ax,p,side)
     f.text(.075,.449,"Actual XYZ coordinates, one transverse repeat. Shaded regions: L / D / R.",fontsize=8,color=GRAY)
@@ -128,9 +134,9 @@ with PdfPages(out,metadata={"Title":"PyYAeHMOP Version 2: Reproducible Electroni
     f.text(.075,.636,"No access to a specific research cluster is required.",fontsize=11,color=NAVY)
     ax=f.add_axes([.12,.420,.78,.15]);geo(ax,DEV/"pristine.device.job")
     f.text(.075,.373,"What this manual covers",fontsize=12,fontweight="bold",color=TEAL)
-    for j,l in enumerate(["02  Installation: pip, virtual environments and Conda","03  Electronic structure and magnetic calculations","04–05  Parameters and reproducible BandFit calibration","06–08  Geometry, device input and interpreting output","09–23  Fifteen individual device walkthroughs with T, G and I(V)","24–29  Benchmarks, electronic plots, contact setup and PBS; 30–31  CIF/XYZ"]):
-        f.text(.075,.34-j*.035,l,fontsize=10,color=NAVY)
-    f.text(.075,.095,"Experimental code: numerical demonstrations are not automatically physical predictions.",fontsize=9,color=ORANGE)
+    for j,l in enumerate(["02  Installation: pip, virtual environments and Conda","03  Electronic structure and magnetic calculations","04–05  Parameters and reproducible BandFit calibration","06–08  Geometry, device input and interpreting output","09–23  Fifteen individual device walkthroughs with T, G and I(V)","24–29  Benchmarks, electronic plots, contact setup and PBS","30–31  XYZ/CIF: direct uniform and explicit-device inputs","32–46  Appendix A: all 15 paired device inputs","47–52  Appendix B: all six BandFit pairs","53–67  Appendix C: all original electronic and magnetic inputs"]):
+        f.text(.075,.34-j*.025,l,fontsize=10,color=NAVY)
+    f.text(.075,.074,"Experimental code: numerical demonstrations are not automatically physical predictions.",fontsize=9,color=ORANGE)
     save(pdf,f)
     f=page(pdf,"Getting started","Install and run","Choose either a Python virtual environment or Conda.")
     y=head(f,.85,"A. pip and venv (recommended)")
@@ -190,9 +196,9 @@ with PdfPages(out,metadata={"Title":"PyYAeHMOP Version 2: Reproducible Electroni
     y=head(f,.85,"Uniform .transport.job")
     y=code(f,y,"structure_format = xyz\nstructure = graphene.xyz\nlattice_vectors = 2.459512 0 0; 0 0 4.26\nimages = 5 4\ntransport_axis = 1\ntransverse_kpoints = 301")
     y=para(f,y,"The zero-based index 1 chooses the second lattice vector (z). The solver folds interactions into principal layers automatically. It describes pristine uniform materials, not an isolated central defect.")
-    y=head(f,y,"Explicit .device.job")
+    y=head(f,y,"Explicit .device.job (XYZ or CIF)")
     y=code(f,y,"electrode_left = left.xyz\nscattering_region = pristine.xyz\nelectrode_right = right.xyz\ntransverse_vectors = 2.459512 0 0\nleft_repeat = 0 0 8.52\nright_repeat = 0 0 8.52\ncutoff = 4.5\nquadrature = 16 12 8")
-    y=para(f,y,"All XYZs must share a Cartesian origin and coordinate axes. The nearest layers can have different atom counts, species and longitudinal periods. A common transverse lattice and a shared energy convention are required. For 1D leave transverse_kpoints blank.")
+    y=para(f,y,"All XYZs must share a Cartesian origin and coordinate axes. CIF alternatives use a common P1 box and origin metadata (see page 31). The nearest layers can have different atom counts, species and longitudinal periods. A common transverse lattice and a shared energy convention are required. For 1D leave transverse_kpoints blank.")
     para(f,y,"These excerpts are not complete inputs. Use the supplied runnable .job files, which also specify parameters, energy grid and output options. The device solver checks projected layer separation conservatively; enlarge layers if the check fails.",size=9)
     save(pdf,f)
     f=page(pdf,"Transport output","What the calculated curves mean","Coherent, elastic NEGF in a nonorthogonal basis.")
@@ -325,16 +331,96 @@ with PdfPages(out,metadata={"Title":"PyYAeHMOP Version 2: Reproducible Electroni
     y=para(f,.171,f"Full 4B (301 k, 401 energies): maximum absolute T difference {fullerr:.3g}. All six quick pairs: {m:.3g}. The lines overlap. Every model has paired full/quick CIF and XYZ jobs.",size=9)
     para(f,y,"For a quick run use examples/tutorials/bandfit/pdz7_4B_smoke_cif.transport.job. See docs/transport-cif.md for all paths, direction changes and vacuum convergence cautions.",size=9)
     save(pdf,f)
-    f=page(pdf,"CIF and XYZ","Independent devices from CIF","A coordinate-conversion workflow, not a new device input parser.")
-    y=para(f,.85,"The .device.job solver takes XYZ files for L, D and R. All 15 examples include CIF sources in cif_sources/<job-name>/ (or cif_sources/run/). These are P1 padded interchange boxes, not physical bulk electrode unit cells. origin.json stores their common Cartesian offset.")
-    y=code(f,y,"python examples/transport/device_from_cif.py \\\n  examples/devices/pristine.device.job\npython -m pyaehmop \\\n  examples/devices/results/cif_roundtrip/pristine/converted.device.job \\\n  --workers 4",7.8)
-    y=para(f,y,"For dissimilar electrodes, replace pristine.device.job by graphene_mos2.device.job and pristine in the output path by graphene_mos2. The converter restores global coordinates and atom order, retains repeat vectors, parameters and magnetic options, and writes the generated inputs under results/. The original inputs are untouched.")
+    f=page(pdf,"CIF and XYZ","Independent devices from CIF","Run either input directly; no separate conversion command.")
+    y=para(f,.85,"All 15 devices have paired .device.job files. XYZ gives Cartesian coordinates; the CIF variant reads three ordered P1 region files sharing a padded orthogonal box and origin.json. The physical repeats remain in the job.")
+    y=code(f,y,"python -m pyaehmop examples/devices/pristine.device.job --workers 4\npython -m pyaehmop examples/devices/pristine_cif.device.job --workers 4\npython -m pyaehmop examples/devices/graphene_mos2.device.job --workers 4\npython -m pyaehmop examples/devices/graphene_mos2_cif.device.job --workers 4",7.2)
+    y=para(f,y,"The native reader restores absolute coordinates and atom order and ignores the artificial box periodicity. The CIF input contains structure_format=cif, cif_origin and paths to left.cif, device.cif and right.cif. All physical settings stay the same. See Appendix A for all 15 complete input pairs.")
     ax=f.add_axes([.12,.41,.78,.115]);geo(ax,DEV/"graphene_mos2.device.job")
-    f.text(.075,.368,"Actual graphene-MoS2 coordinates. CIF conversion preserves these three regions.",fontsize=8,color=GRAY)
-    m=max(x["transmission.dat"] for x in checks["devices"].values())
-    c=max(x["max_coordinate_error_A"] for x in checks["devices"].values())
-    y=para(f,.331,f"Validated {len(checks['devices'])} device CIF round trips: maximum coordinate difference {c:.3g} angstrom; maximum absolute T difference {m:.3g}. The same device model is recovered; this does not validate the underlying physical parameters.",size=9)
-    y=para(f,y,"For new devices, read real bulk CIFs with ASE, choose commensurate transverse periods, construct principal layers, and position L/D/R in one global frame before writing XYZ. A simple CIF-to-XYZ conversion does not build the contacts. Never infer lead repeats from the padded interchange box.",size=9)
-    para(f,y,"See docs/transport-cif.md and the archived numerical validation in examples/transport/cif_reference/validation.json. No external NEGF program is required.",size=9)
+    f.text(.075,.368,"Actual graphene-MoS2 coordinates. Both input formats preserve these regions.",fontsize=8,color=GRAY)
+    checks=json.loads((TR/"cif_reference/direct_device_validation.json").read_text())
+    m=max(x["transmission.dat"] for x in checks.values())
+    c=max(x["max_coordinate_error_A"] for x in checks.values())
+    y=para(f,.331,f"Direct CIF validation: {len(checks)} devices; maximum coordinate difference {c:.3g} angstrom; maximum absolute T difference {m:.3g}. This establishes format equivalence, not physical calibration.",size=9)
+    y=para(f,y,"For new devices, read real bulk CIFs with ASE, expand symmetry, build commensurate principal layers and place L/D/R in one frame. Export XYZ or matching ordered P1 region CIFs plus common origin. Never infer lead repeats from the padded interchange box. No automatic interface assembly is performed.",size=9)
+    para(f,y,"The optional converter remains available for exporting XYZ. For exact commands and geometry paths see the catalog at examples/README.md and docs/transport-cif.md.",size=9)
     save(pdf,f)
+    # Appendix A: retain every original plotted case and provide its full job.
+    for name,title,desc,old,side in cases:
+        p=DEV/(name+".device.job") if old else TUT/name/"run.device.job"
+        q=p.with_name(p.name.replace(".device.job","_cif.device.job"))
+        x,c=opts(p),opts(q)
+        f=page(pdf,"Appendix A / devices",title,"Complete paired inputs. Choose either format; same Hamiltonian and geometry.")
+        y=para(f,.85,desc,width=96,size=9)
+        y=compact_code(f,y,"# From repository root\npython -m pyaehmop "+p.relative_to(ROOT).as_posix()+" --workers 4\npython -m pyaehmop "+q.relative_to(ROOT).as_posix()+" --workers 4",7.0)
+        y=head(f,y,"Geometry block: XYZ input")
+        y=compact_code(f,y,"structure_format = xyz  # default\n"+"\n".join(k+" = "+x[k] for k in ("electrode_left","scattering_region","electrode_right")),7.6)
+        y=head(f,y,"Geometry block: CIF input")
+        y=compact_code(f,y,"\n".join(k+" = "+c[k] for k in ("structure_format","cif_origin","electrode_left","scattering_region","electrode_right")),7.2)
+        y=head(f,y,"Shared job settings (append to either block)")
+        keys=[k for k in x if k not in ("structure_format","cif_origin","electrode_left","scattering_region","electrode_right","output")]
+        # Two columns, actual values from shipped file, with an explicit output row.
+        lines=[k+" = "+x[k] for k in keys]
+        split=(len(lines)+1)//2
+        left,right=lines[:split],lines[split:]
+        h=.0155*split+.022
+        f.patches.append(Rectangle((.075,y-h),.85,h,transform=f.transFigure,facecolor=LIGHT,edgecolor="#d4e0e6",lw=.5))
+        for j,col in enumerate((left,right)):
+            for i,line in enumerate(col):f.text(.09+j*.425,y-.009-i*.0155,line,fontfamily="DejaVu Sans Mono",fontsize=6.6,color=NAVY,va="top")
+        y-=h+.018
+        y=para(f,y,"For XYZ add output = "+x["output"]+"; for CIF add output = "+c["output"]+". Paths are relative to the job directory. The CIF box is coordinate interchange only; the listed repeat/transverse vectors determine the physical periodicity.",width=105,size=8)
+        data=json.loads((TR/"cif_reference/direct_device_validation.json").read_text())
+        err=data[p.relative_to(ROOT).as_posix()]["transmission.dat"]
+        para(f,y,f"Direct CIF versus XYZ max absolute transmission difference: {err:.3g}. For plots and physical limitations see the corresponding Device examples page (09–23).",width=105,size=8)
+        save(pdf,f)
+    # Appendix B: all six complete uniform transport pairs.
+    for p in sorted(BF.glob("*B.transport.job")):
+        name=p.name.removesuffix(".transport.job")
+        q=p.with_name(name+"_cif.transport.job")
+        x,c=opts(p),opts(q)
+        f=page(pdf,"Appendix B / BandFit",name+" transport","Full 301-k / 401-energy jobs, plus quick alternatives.")
+        y=compact_code(f,.85,"python -m pyaehmop "+p.relative_to(ROOT).as_posix()+" --workers 4\npython -m pyaehmop "+q.relative_to(ROOT).as_posix()+" --workers 4",7.0)
+        y=head(f,y,"XYZ geometry and sampling")
+        y=compact_code(f,y,"\n".join(k+" = "+x[k] for k in ("structure_format","structure","lattice_vectors","images","transport_axis","transverse_kpoints")),7.5)
+        y=head(f,y,"CIF geometry and sampling")
+        y=compact_code(f,y,"\n".join(k+" = "+c[k] for k in ("structure_format","structure","images","transport_axis","transverse_kpoints")),7.5)
+        y=head(f,y,"Shared settings")
+        keys=[k for k in x if k not in ("structure_format","structure","lattice_vectors","images","transport_axis","transverse_kpoints","output")]
+        lines=[k+" = "+x[k] for k in keys];split=(len(lines)+1)//2
+        h=.016*split+.022
+        f.patches.append(Rectangle((.075,y-h),.85,h,transform=f.transFigure,facecolor=LIGHT,edgecolor="#d4e0e6",lw=.5))
+        for j,col in enumerate((lines[:split],lines[split:])):
+            for i,line in enumerate(col):f.text(.09+j*.425,y-.009-i*.016,line,fontfamily="DejaVu Sans Mono",fontsize=6.8,color=NAVY,va="top")
+        y-=h+.015
+        y=para(f,y,"Add output = "+x["output"]+" (XYZ) or output = "+c["output"]+" (CIF). Quick jobs: "+name+"_smoke.transport.job and "+name+"_smoke_cif.transport.job (15 k, 81 energies). The fitted parameter file and K are shared.",size=8,width=105)
+        y=compact_code(f,y,(BF/x["parameters"]).read_text().strip(),6.9)
+        para(f,y,"Native EHT table above; Hii in eV and Slater exponents in inverse Bohr. A 30 Å CIF vacuum removes coupling across y for the 11 Å cutoff. The six quick pairs and full 4B CIF were validated; other five full CIF jobs are supplied but not rerun.",size=8,width=105)
+        save(pdf,f)
+    # Appendix C: every previously distributed friendly and magnetic input.
+    explanations={
+        "water_full":"Water: Cartesian XYZ, default EHT parameters, molecular levels, charges and DOS. The original DOS and HOMO/LUMO plots appear earlier.",
+        "water_charges":"Molecular water with only Mulliken charge calculation.",
+        "water_default_parameters":"Water with explicit selection of the bundled YAeHMOP parameter table.",
+        "water_custom_parameters":"Water with a user-provided native parameter file; the remaining options define the molecular calculation.",
+        "diamond_cif":"Primitive diamond: CIF stores cell and fractional sites. Custom carbon parameters, sampled band path, DOS and Mulliken charges.",
+        "diamond_ase":"Diamond in ASE extended XYZ. Unlike ordinary XYZ, extended XYZ includes lattice and periodic boundary flags.",
+        "diamond_poscar":"Diamond using POSCAR through the structure reader; the cell and atomic sites come from the file.",
+        "diamond_reference":"Native YAeHMOP diamond input; reproduces the legacy electronic-structure example.",
+        "xef4_original":"Native molecular YAeHMOP example including fragment molecular orbital / bond analysis.",
+        "Fe_wire_spin":"Periodic Fe wire with constrained collinear Stoner self-consistency, without SOC.",
+        "Fe_wire_soc":"Periodic Fe wire with atomic spin-orbit coupling only.",
+        "Fe_wire_both":"Periodic Fe wire with Stoner exchange and atomic SOC; spin DOS and SCF history plotted earlier.",
+        "Fe_wire_external_parameters":"Fe wire with external EHT parameters and its prescribed spin/SOC settings.",
+        "Fe_wire_soc_exaggerated":"Artificially large SOC to demonstrate the numerical effect; not a physical Fe value.",
+        "C_atom_both":"Isolated carbon atom with spin and atomic SOC; electronic, not transport, calculation."
+    }
+    for p in [*sorted((ROOT/"pyaehmop/examples_friendly").glob("*.job")),*sorted((ROOT/"pyaehmop/SPIN_TEST/examples").glob("*.spin"))]:
+        f=page(pdf,"Appendix C / electronic",p.stem.replace("_"," "),"Original molecular, crystal or magnetic example — complete input.")
+        y=para(f,.85,explanations.get(p.stem,"Original electronic structure example."),width=94,size=10)
+        mod="pyaehmop.SPIN_TEST" if p.suffix==".spin" else "pyaehmop"
+        y=compact_code(f,y,"python -m "+mod+" "+p.relative_to(ROOT).as_posix(),7.0)
+        y=head(f,y,"Input file (comments and blank lines omitted)")
+        lines=[l.strip() for l in p.read_text().splitlines() if l.strip() and not l.lstrip().startswith("#")]
+        y=compact_code(f,y,"\n".join(lines),7.1)
+        y=para(f,y,"Run from the checkout root. Structure and parameter paths are relative to the input directory. Read the output directory specified in the job; compare with examples/tutorials/reference/electronic_summary.json. See the plots and discussion in the electronic-structure and magnetism chapters.",size=9)
+        save(pdf,f)
 print(out,P,"pages",out.stat().st_size,"bytes")

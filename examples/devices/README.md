@@ -1,3 +1,5 @@
+**[Complete paired XYZ/CIF input catalog](../README.md)** — all transport cases can now be run directly with either format.
+
 # Version 2: independent two-terminal EHT-NEGF (experimental)
 
 Version 2 preserves the original PyYAeHMOP engine and its existing input formats,
@@ -21,7 +23,7 @@ PBS is optional. On a workstation run the individual commands directly. Adapt re
 
 ## Geometry convention and input
 
-Each file is a Cartesian XYZ in the SAME coordinate frame (angstrom).
+Each XYZ file uses the SAME Cartesian frame (angstrom). Direct CIF jobs specify a common ordered P1 box and cif_origin metadata to recover that frame.
 Left and right are the nearest principal layers, not isolated bulk cells
 at arbitrary origins. Repeat vectors both point from left toward right.
 The transverse lattice vectors are common to all three regions; omit them
@@ -35,7 +37,7 @@ See [the illustrated geometry guide](../../docs/device-geometry.md), [parameter 
 See pristine.device.job for all keys. The suffix .device.job selects
 the new solver; the old .transport.job remains available.
 
-- electrode_left, electrode_right, scattering_region: explicit XYZ.
+- electrode_left, electrode_right, scattering_region: explicit XYZ or ordered P1 CIF.
 - transverse_vectors: semicolon-separated Cartesian vectors; one mesh
   integer per vector in transverse_kpoints, blank for 1D.
 - left_repeat/right_repeat: longitudinal principal-layer vectors.
@@ -155,4 +157,4 @@ See the [geometry atlas](../../docs/device-geometry.md) and [illustrated PDF](..
 
 ## CIF alternatives for transport
 
-[CIF source files and conversion](../../docs/transport-cif.md#3-explicit-devices-cif-source-files-xyz-solver-input) explains the paired uniform inputs and how to convert the three-region CIF sources for all explicit device examples. The original XYZ examples remain unchanged.
+[Direct CIF jobs and optional conversion](../../docs/transport-cif.md#3-explicit-devices-direct-xyz-and-cif-jobs) explains the paired uniform inputs and how to run all three-region CIF jobs directly (the optional converter is retained). The original XYZ examples remain unchanged.

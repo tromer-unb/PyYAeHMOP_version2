@@ -1,3 +1,5 @@
+**[Complete paired XYZ/CIF input catalog](../examples/README.md)** — all transport cases can now be run directly with either format.
+
 # Input formats and calculation recipes
 
 [← Overview](../README.md) · [Installation](installation.md) · [Examples](examples.md)
@@ -260,4 +262,4 @@ For additional settings and validation details consult the [complete friendly-in
 
 ## CIF alternatives for transport
 
-[CIF and XYZ transport guide](transport-cif.md) explains the paired uniform inputs and how to convert the three-region CIF sources for all explicit device examples. The original XYZ examples remain unchanged.
+[CIF and XYZ transport guide](transport-cif.md) explains the paired uniform inputs and how to run all three-region CIF jobs directly (the optional converter is retained). The original XYZ examples remain unchanged.

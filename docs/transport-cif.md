@@ -56,47 +56,75 @@ The carbon .dat files and K values are identical for each pair.
 Use the corresponding model's archived absolute energy reference.
 No refitting is needed to switch file format.
 
-## 3. Explicit devices: CIF source files, XYZ solver input
+## 3. Explicit devices: direct XYZ and CIF jobs
 
-The .device.job parser still requires three Cartesian XYZ files.
-A CIF does not by itself define the left electrode, device and right
-electrode or their absolute relative translations.
+Each of the 15 devices now has two runnable jobs in the same directory.
+See the [complete catalog](../examples/README.md) for direct links.
+Run either job with the same command, without manual conversion:
 
-Each of the 15 shipped explicit-device examples now has a matching
-cif_sources/<job-name>/ directory containing left.cif, device.cif,
-right.cif and origin.json. The seven tutorials using run.device.job
-use cif_sources/run/. These P1 CIFs share a padded, artificial coordinate
-box and preserve all sites. They are **coordinate interchange files,
-not physical bulk electrode CIF cells**. The true repeat vectors and
-transverse periodicity are specified in the original .device.job.
-origin.json stores the common Cartesian offset so the converter can
-restore the three absolute positions and atom ordering. This also
-preserves zero-based magnetic atom indices.
+    python -m pyaehmop examples/devices/pristine.device.job --workers 4
+    python -m pyaehmop examples/devices/pristine_cif.device.job --workers 4
 
-Example: pristine graphene
+Different electrodes:
+
+    python -m pyaehmop examples/devices/graphene_mos2.device.job --workers 4
+    python -m pyaehmop examples/devices/graphene_mos2_cif.device.job --workers 4
+
+The CIF job differs only in geometry selection and output path. Example:
+
+    structure_format = cif
+    cif_origin = cif_sources/pristine/origin.json
+    electrode_left = cif_sources/pristine/left.cif
+    scattering_region = cif_sources/pristine/device.cif
+    electrode_right = cif_sources/pristine/right.cif
+    transverse_vectors = 2.459512 0 0
+    left_repeat = 0 0 8.52
+    right_repeat = 0 0 8.52
+
+In the XYZ job, structure_format defaults to xyz, cif_origin is absent,
+and the three paths end in .xyz. All remaining physical and numerical
+parameters are identical. The CIF reader restores global Cartesian
+positions internally (including the common offset), preserves atom
+order, and ignores the artificial box periodicity. Only the explicit
+repeat/transverse vectors define the physical periodicity of devices.
+
+### Why the common box matters
+
+All shipped three-region CIFs are fully occupied P1 **coordinate
+interchange boxes**, not physical bulk electrode unit cells. They share
+one orthogonal padded box and origin.json. The box keeps all atom sites
+away from periodic wrapping; its lengths must not be substituted for
+left_repeat or right_repeat. The parser rejects non-P1, partially occupied
+sites and mismatched cells. For magnetic jobs preserve the site ordering:
+exchange_eV indexes atoms starting at zero.
+
+The seven individual tutorials have run.device.job and run_cif.device.job,
+with geometries in cif_sources/run/. The eight shared examples have
+<name>.device.job and <name>_cif.device.job, with geometries in
+cif_sources/<name>/. Results of CIF jobs are written under results/cif_direct/.
+
+For a new device, start with physically meaningful bulk CIFs, expand
+symmetry and build sufficiently thick principal layers, choose a common
+transverse cell, place all three regions in one Cartesian frame, and
+export either XYZ or three ordered P1 CIFs in the same padded box with
+matching origin metadata. A bulk CIF alone does not build a heterojunction.
+See [device geometry](device-geometry.md). The optional previous converter
+remains available for comparing exported XYZ files:
 
     python examples/transport/device_from_cif.py examples/devices/pristine.device.job
-    python -m pyaehmop examples/devices/results/cif_roundtrip/pristine/converted.device.job --workers 4
 
-Example: different electrodes, graphene–MoS2
+### Verification
 
-    python examples/transport/device_from_cif.py examples/devices/graphene_mos2.device.job
-    python -m pyaehmop examples/devices/results/cif_roundtrip/graphene_mos2/converted.device.job --workers 4
+The direct input validation compares the CIF and XYZ coordinates, all
+three spectra and collinear current channels where present. See
+[direct validation](../examples/transport/cif_reference/direct_device_validation.json).
+Run from the repository root:
 
-The converted XYZ files and job are generated locally under results/,
-leaving the original inputs untouched. The calculations are written to
-the generated job's calculated/ directory. Use the same converter for
-vacancy, adsorbate, nanoribbon, spin, SOC and other shipped device jobs.
-For example, for nanoribbon pass examples/tutorials/nanoribbon/run.device.job
-and run examples/tutorials/nanoribbon/results/cif_roundtrip/run/converted.device.job.
+    python -m examples.transport.validate_direct_cif
 
-For a new device, start with physically meaningful bulk CIFs, read
-them using ASE, construct sufficiently thick principal layers, choose a
-common transverse cell, and translate the contacts and device into one
-global coordinate frame before exporting XYZ. The shipped converter
-is only for the included CIF sets with their matching origin.json; it
-does not automatically create an interface or align arbitrary CIFs.
-See [device geometry](device-geometry.md).
+Or use optional PBS:
+
+    qsub -v PYTHON="$(command -v python)" examples/transport/validate_direct_cif.pbs
 
 ## 4. Reproduce the validation
 
@@ -130,3 +158,5 @@ XYZ exporter. Final PBS job 62870 completed with exit 0. The validation
 runner uses a separate Python process for each job to avoid accumulated
 native-library state. An earlier single-process rerun was interrupted
 by a segmentation fault; the fresh-process validation completed.
+
+Native CIF device validation completed for all 15 cases (PBS 62874, exit 0). Maximum recorded coordinate, T, G and I differences were zero; collinear current channels also matched. Only the geometry reader was added; the NEGF Hamiltonian and solver are unchanged.

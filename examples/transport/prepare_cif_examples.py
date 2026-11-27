@@ -44,6 +44,7 @@ def main():
     # A common padded CIF box prevents wraparound; retain the origin separately.
     jobs=[*sorted((ROOT/"examples/devices").glob("*.device.job")),*sorted((ROOT/"examples/tutorials").glob("*/run.device.job"))]
     for path in jobs:
+        if path.name.endswith("_cif.device.job"): continue
         o=options(path);name=path.name.removesuffix(".device.job")
         folder=path.parent/"cif_sources"/name
         keys=("electrode_left","scattering_region","electrode_right")
@@ -54,5 +55,11 @@ def main():
         for label,(s,p) in zip(("left","device","right"),data):
             write_cif(folder/(label+".cif"),s,p-origin,lengths)
         (folder/"origin.json").write_text(json.dumps({"cartesian_origin_A":origin.tolist(),"box_lengths_A":lengths.tolist(),"source_job":path.name,"note":"Common padded coordinate interchange box, not a physical electrode lattice; use the original job repeats."},indent=2)+"\n")
+
+        direct={"structure_format":"cif","cif_origin":str((folder/"origin.json").relative_to(path.parent)),**o}
+        for key,label in zip(keys,("left","device","right")):
+            direct[key]=str((folder/(label+".cif")).relative_to(path.parent))
+        direct["output"]="results/cif_direct/"+name
+        dump_job(path.with_name(name+"_cif.device.job"),direct,"Direct CIF input: common P1 coordinate box, physical repeats specified below.")
 
 if __name__=="__main__":main()

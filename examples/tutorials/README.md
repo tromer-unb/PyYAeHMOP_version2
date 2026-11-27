@@ -1,3 +1,5 @@
+**[Complete paired XYZ/CIF input catalog](../README.md)** — all transport cases can now be run directly with either format.
+
 # Reproducible examples: PyYAeHMOP Version 2
 
 This is the entry point to all runnable examples. No computation is triggered
@@ -86,29 +88,29 @@ full-resolution jobs and quick jobs, and the reproducible partial fit to the
 
 ## 4. Independent electrodes and central region
 
-Each device uses a .device.job input and three XYZ files in the SAME coordinate
+Each device uses a .device.job input and three XYZ or ordered P1 CIF files in the SAME coordinate
 frame. Lead repeat vectors point from left to right. The common transverse
 periodicity can be absent (1D) or nonzero (2D/3D). The solver rejects omitted
 long-range lead couplings; increase the thickness of the contact layers when
 raising cutoff. See [the device manual](../devices/README.md) for every key.
 
-| Implementation | Input | Archived data |
-|---|---|---|
-| Pristine graphene / transport Z | [pristine](../devices/pristine.device.job) | [T/G/I](../devices/benchmarks) |
-| Independent central vacancy | [vacancy](../devices/vacancy.device.job) | [T/G/I](../devices/benchmarks) |
-| CO only in the device | [adsorbate](../devices/adsorbate.device.job) | [T/G/I](../devices/benchmarks) |
-| Dissimilar leads, C/Mo/S chain | [asymmetric](../devices/asymmetric.device.job) | [T/G/I](../devices/benchmarks) |
-| Lateral graphene–MoS2 | [graphene_mos2](../devices/graphene_mos2.device.job) | [T/G/I](../devices/benchmarks) |
-| Frozen spin-polarized transport | [spin](../devices/spin.device.job) | [T/G/I](../devices/benchmarks) |
-| Spinor SOC transport | [soc](../devices/soc.device.job) | [T/G/I](../devices/benchmarks) |
-| Frozen spin + SOC | [spin_soc](../devices/spin_soc.device.job) | [T/G/I](../devices/benchmarks) |
-| Graphene transport X | [graphene_x](graphene_x/run.device.job) | [T/G/I](graphene_x/reference/) |
-| Finite-width nanoribbon (1D) | [nanoribbon](nanoribbon/run.device.job) | [T/G/I](nanoribbon/reference/) |
-| One vacancy in 4x wider transverse cell | [wide_vacancy](wide_vacancy/run.device.job) | [T/G/I](wide_vacancy/reference/) |
-| Central frozen 0.5 eV potential | [potential_barrier](potential_barrier/run.device.job) | [T/G/I](potential_barrier/reference/) |
-| Parallel magnetic contacts | [spin_parallel](spin_parallel/run.device.job) | [T/G/I](spin_parallel/reference/) |
-| Antiparallel magnetic contacts | [spin_antiparallel](spin_antiparallel/run.device.job) | [T/G/I](spin_antiparallel/reference/) |
-| Graphene–MoS2–graphene channel | [graphene_mos2_graphene](graphene_mos2_graphene/run.device.job) | [T/G/I](graphene_mos2_graphene/reference/) |
+| Implementation | XYZ input | CIF input | Archived data |
+|---|---|---|---|
+| Pristine graphene / transport Z | [pristine](../devices/pristine.device.job) | [CIF](../devices/pristine_cif.device.job) | [T/G/I](../devices/benchmarks) |
+| Independent central vacancy | [vacancy](../devices/vacancy.device.job) | [CIF](../devices/vacancy_cif.device.job) | [T/G/I](../devices/benchmarks) |
+| CO only in the device | [adsorbate](../devices/adsorbate.device.job) | [CIF](../devices/adsorbate_cif.device.job) | [T/G/I](../devices/benchmarks) |
+| Dissimilar leads, C/Mo/S chain | [asymmetric](../devices/asymmetric.device.job) | [CIF](../devices/asymmetric_cif.device.job) | [T/G/I](../devices/benchmarks) |
+| Lateral graphene–MoS2 | [graphene_mos2](../devices/graphene_mos2.device.job) | [CIF](../devices/graphene_mos2_cif.device.job) | [T/G/I](../devices/benchmarks) |
+| Frozen spin-polarized transport | [spin](../devices/spin.device.job) | [CIF](../devices/spin_cif.device.job) | [T/G/I](../devices/benchmarks) |
+| Spinor SOC transport | [soc](../devices/soc.device.job) | [CIF](../devices/soc_cif.device.job) | [T/G/I](../devices/benchmarks) |
+| Frozen spin + SOC | [spin_soc](../devices/spin_soc.device.job) | [CIF](../devices/spin_soc_cif.device.job) | [T/G/I](../devices/benchmarks) |
+| Graphene transport X | [graphene_x](graphene_x/run.device.job) | [CIF](graphene_x/run_cif.device.job) | [T/G/I](graphene_x/reference/) |
+| Finite-width nanoribbon (1D) | [nanoribbon](nanoribbon/run.device.job) | [CIF](nanoribbon/run_cif.device.job) | [T/G/I](nanoribbon/reference/) |
+| One vacancy in 4x wider transverse cell | [wide_vacancy](wide_vacancy/run.device.job) | [CIF](wide_vacancy/run_cif.device.job) | [T/G/I](wide_vacancy/reference/) |
+| Central frozen 0.5 eV potential | [potential_barrier](potential_barrier/run.device.job) | [CIF](potential_barrier/run_cif.device.job) | [T/G/I](potential_barrier/reference/) |
+| Parallel magnetic contacts | [spin_parallel](spin_parallel/run.device.job) | [CIF](spin_parallel/run_cif.device.job) | [T/G/I](spin_parallel/reference/) |
+| Antiparallel magnetic contacts | [spin_antiparallel](spin_antiparallel/run.device.job) | [CIF](spin_antiparallel/run_cif.device.job) | [T/G/I](spin_antiparallel/reference/) |
+| Graphene–MoS2–graphene channel | [graphene_mos2_graphene](graphene_mos2_graphene/run.device.job) | [CIF](graphene_mos2_graphene/run_cif.device.job) | [T/G/I](graphene_mos2_graphene/reference/) |
 
 The seven new examples have individual directories with run.device.job,
 left.xyz, device.xyz, right.xyz and magnetic/potential JSON when needed.
@@ -161,4 +163,4 @@ The [PDF manual](../../docs/PyYAeHMOP_v2_tutorial.pdf) is generated from shipped
 
 ## CIF alternatives for transport
 
-[CIF and XYZ transport guide](../../docs/transport-cif.md) explains the paired uniform inputs and how to convert the three-region CIF sources for all explicit device examples. The original XYZ examples remain unchanged.
+[CIF and XYZ transport guide](../../docs/transport-cif.md) explains the paired uniform inputs and how to run all three-region CIF jobs directly (the optional converter is retained). The original XYZ examples remain unchanged.

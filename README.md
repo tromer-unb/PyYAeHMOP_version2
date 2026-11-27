@@ -1,3 +1,20 @@
+## Download and run: complete example catalog
+
+**[All examples — XYZ and CIF input files side by side](examples/README.md)** · **[Complete illustrated PDF](docs/PyYAeHMOP_v2_tutorial.pdf)**
+
+Direct examples (from the repository root after installation):
+
+```bash
+python -m pyaehmop examples/transport/graphene.transport.job
+python -m pyaehmop examples/transport/graphene_cif.transport.job
+python -m pyaehmop examples/devices/pristine.device.job
+python -m pyaehmop examples/devices/pristine_cif.device.job
+python -m pyaehmop examples/devices/graphene_mos2.device.job
+python -m pyaehmop examples/devices/graphene_mos2_cif.device.job
+```
+
+Both formats run directly. Explicit device CIFs use a common ordered P1 box and origin metadata; physical lead repeat vectors remain in the job. See [CIF/XYZ guide](docs/transport-cif.md).
+
 **Start here:** [Illustrated PDF tutorial](docs/PyYAeHMOP_v2_tutorial.pdf) · [Runnable examples](examples/tutorials/README.md) · [Installation](docs/installation.md) · [Device geometry](docs/device-geometry.md) · [Parameter sources](docs/parameters.md)
 
 > **Version 2 experimental device transport.** This independent repository preserves PyYAeHMOP 0.4.0 and adds explicit left/right electrodes, independent scattering region, frozen collinear spin and atomic SOC. See [device input and examples](examples/devices/README.md).

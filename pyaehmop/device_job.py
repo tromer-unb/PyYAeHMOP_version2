@@ -1,12 +1,36 @@
-"""Explicit two-terminal device input (XYZ, shared Cartesian coordinates)."""
+"""Explicit two-terminal device input (XYZ or ordered P1 CIF, common frame)."""
 import argparse, json
 from pathlib import Path
 from itertools import product
 import numpy as np
-from .structure_io import read_xyz
+from .structure_io import read_xyz,from_ase_atoms
 from .parameter_files import load_parameter_selection
 from .device_transport import Region,build_device,spectrum_device
 from .transport_observables import conductance,current_voltage
+
+def read_device_cif(path,params,metadata):
+    """Read a fully occupied P1 interchange CIF in a common Cartesian box.
+
+    The artificial CIF cell is not a lead repeat. The required common origin
+    metadata restores the original frame; explicit job vectors set periodicity.
+    """
+    from ase.io import read
+    atoms=read(path,format="cif",index=0)
+    group=atoms.info.get("spacegroup")
+    if getattr(group,"no",None)!=1:
+        raise ValueError("Device CIF requires explicit P1 sites; expand symmetry before building the device")
+    for site,comps in atoms.info.get("occupancy",{}).items():
+        if len(comps)!=1 or abs(float(next(iter(comps.values())))-1)>1e-6:
+            raise ValueError(f"Device CIF requires fully occupied ordered sites: {site}")
+    origin=np.asarray(metadata["cartesian_origin_A"],float)
+    lengths=np.asarray(metadata["box_lengths_A"],float)
+    if origin.shape!=(3,) or lengths.shape!=(3,) or not np.isfinite(origin).all() or not np.isfinite(lengths).all() or np.any(lengths<=0):
+        raise ValueError("CIF origin/box must be finite three-component vectors; box lengths must be positive")
+    if not np.allclose(np.asarray(atoms.cell),np.diag(lengths),atol=1e-8,rtol=0):
+        raise ValueError("CIF region cell does not match the common orthogonal box in cif_origin")
+    atoms.positions=np.round(atoms.positions+origin,12)
+    atoms.pbc=False
+    return from_ase_atoms(atoms,Path(path).stem,parameter_table=params)
 
 def run_job(path,workers=None):
     path=Path(path).resolve(); base=path.parent; o={}
@@ -16,7 +40,7 @@ def run_job(path,workers=None):
         k,sep,v=line.partition("="); k=k.strip()
         if not sep or k in o: raise ValueError("Expected unique key=value: "+line)
         o[k]=v.strip()
-    allowed=set("electrode_left electrode_right scattering_region transverse_vectors left_repeat right_repeat parameters K weighted_hij cutoff quadrature workers spin soc magnetic_parameters energy_reference_eV energy_min energy_max energy_points eta transverse_kpoints calculations temperature bias_min bias_max bias_points output plots".split())
+    allowed=set("structure_format cif_origin electrode_left electrode_right scattering_region transverse_vectors left_repeat right_repeat parameters K weighted_hij cutoff quadrature workers spin soc magnetic_parameters energy_reference_eV energy_min energy_max energy_points eta transverse_kpoints calculations temperature bias_min bias_max bias_points output plots".split())
     if set(o)-allowed: raise ValueError("Unknown options: "+str(set(o)-allowed))
     def yes(k): return o.get(k,"false").lower() in ("yes","true","1")
     def vec(k): return np.array([float(x) for x in o[k].split()])
@@ -27,9 +51,16 @@ def run_job(path,workers=None):
     spin,soc=yes("spin"),yes("soc")
     magnet=json.loads((base/o["magnetic_parameters"]).read_text()) if "magnetic_parameters" in o else {}
     if (spin or soc) and not magnet: raise ValueError("Explicit calibrated magnetic_parameters JSON required")
+    kind=o.get("structure_format","xyz").lower()
+    if kind not in ("xyz","cif"): raise ValueError("Device structure_format must be xyz or cif")
+    if kind=="cif" and "cif_origin" not in o: raise ValueError("Device CIF requires cif_origin metadata for the common box")
+    if kind=="xyz" and "cif_origin" in o: raise ValueError("cif_origin is only valid for device CIF")
+    metadata=json.loads((base/o["cif_origin"]).read_text()) if kind=="cif" else None
     regions=[]
     for label,key in (("left","electrode_left"),("device","scattering_region"),("right","electrode_right")):
-        st=read_xyz(base/o[key],params); cfg=magnet.get(label,{})
+        source=base/o[key]
+        st=read_device_cif(source,params,metadata) if kind=="cif" else read_xyz(source,params)
+        cfg=magnet.get(label,{})
         if set(cfg)-{"offset_eV","exchange_eV","soc_eV"}: raise ValueError("Unknown magnetic region key")
         regions.append(Region(st.atoms,float(cfg.get("offset_eV",0)),cfg.get("exchange_eV",{}) if spin else {},cfg.get("soc_eV",{}) if soc else {}))
     if spin and not any(np.any(r.shift) for r in regions): raise ValueError("spin enabled but no exchange")

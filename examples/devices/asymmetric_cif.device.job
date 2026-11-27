@@ -1,0 +1,18 @@
+# Direct CIF input: common P1 coordinate box, physical repeats specified below.
+structure_format = cif
+cif_origin = cif_sources/asymmetric/origin.json
+electrode_left = cif_sources/asymmetric/left.cif
+scattering_region = cif_sources/asymmetric/device.cif
+electrode_right = cif_sources/asymmetric/right.cif
+left_repeat = 0 0 1.5
+right_repeat = 0 0 1.8
+cutoff = 2.0
+transverse_kpoints = 
+energy_reference_eV = -11
+energy_min = -2
+energy_max = 2
+energy_points = 41
+workers = 2
+calculations = transmission, conductance, iv
+output = results/cif_direct/asymmetric
+plots = true
