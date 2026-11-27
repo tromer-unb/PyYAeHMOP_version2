@@ -66,3 +66,7 @@ Outputs: transmission.dat (per spin), transmission_k.npz, conductance.dat (S, ze
 ![Frozen equilibrium IV](multiband_iv.svg)
 
 [Archived I–V data](multiband_iv.csv) use symmetric chemical potentials ±V/2, 300 K and spin degeneracy two, integrated from the interpolated 41-point equilibrium transmission curves. These are illustrative Landauer postprocessing, not self-consistent finite-bias DFT or EHT simulations. The executable job integrates its full energy grid and checks bias/thermal coverage. G(E)=2e²/h T(E) at zero temperature. References: R. Landauer, IBM J. Res. Dev. 1, 223 (1957), https://doi.org/10.1147/rd.13.0223; M. Büttiker, Phys. Rev. Lett. 57, 1761 (1986), https://doi.org/10.1103/PhysRevLett.57.1761.
+
+## CIF alternatives for transport
+
+[CIF and XYZ transport guide](../../docs/transport-cif.md) explains the paired uniform inputs and how to convert the three-region CIF sources for all explicit device examples. The original XYZ examples remain unchanged.

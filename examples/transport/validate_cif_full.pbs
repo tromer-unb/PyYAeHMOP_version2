@@ -1,0 +1,27 @@
+#!/bin/bash
+#PBS -N EHT_cif_full
+#PBS -l select=1:ncpus=16:mpiprocs=1:ompthreads=16:mem=12gb
+#PBS -l walltime=01:00:00
+#PBS -j oe
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLBACKEND=Agg
+PY=${PYTHON:-python}
+"$PY" -m pyaehmop examples/transport/graphene_cif.transport.job --workers 16
+"$PY" - <<'PY'
+import json
+import numpy as np
+from pathlib import Path
+from examples.transport.validate_cif import compare
+a=Path("examples/tutorials/bandfit/results/pdz7_4B")
+if not (a/"transmission.dat").exists():
+    from pyaehmop.transport_job import run_job
+    a=run_job(Path("examples/tutorials/bandfit/pdz7_4B.transport.job"),16)
+b=Path("examples/transport/results/pdz7_4B_cif")
+out=Path("examples/transport/cif_reference");out.mkdir(exist_ok=True)
+d=compare(a,b)
+(out/"full_validation.json").write_text(json.dumps(d,indent=2)+"\n")
+x,y=np.loadtxt(a/"transmission.dat"),np.loadtxt(b/"transmission.dat")
+np.savetxt(out/"graphene_xyz_cif_full.dat",np.c_[x,y[:,1]],header="E_relative_eV T_XYZ T_CIF")
+print(d)
+PY

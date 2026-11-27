@@ -62,3 +62,7 @@ Quick-grid spectra are NOT the high-resolution benchmark.
 ![Quick transport comparison](reference/smoke_transmission.svg)
 
 All six full jobs also completed (PBS 62858). Compare [full T(E)](reference/full_transmission.csv), [G(E)](reference/full_conductance.csv), [I(V)](reference/full_current_voltage.csv) and [reproduction errors](reference/reproduction_metrics.json). The maximum discrepancy against the archived EHT values at the 41 shared energies is below 5e-11. This verifies reproducibility, not DFT accuracy.
+
+## CIF alternatives for transport
+
+[CIF and XYZ transport guide](../../../docs/transport-cif.md) explains the paired uniform inputs and how to convert the three-region CIF sources for all explicit device examples. The original XYZ examples remain unchanged.

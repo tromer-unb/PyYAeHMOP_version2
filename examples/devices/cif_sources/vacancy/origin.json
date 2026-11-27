@@ -1,0 +1,14 @@
+{
+  "cartesian_origin_A": [
+    -5.0,
+    -5.0,
+    -13.52
+  ],
+  "box_lengths_A": [
+    11.229756,
+    10.0,
+    34.849999999999994
+  ],
+  "source_job": "vacancy.device.job",
+  "note": "Common padded coordinate interchange box, not a physical electrode lattice; use the original job repeats."
+}

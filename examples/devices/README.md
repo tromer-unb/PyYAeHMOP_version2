@@ -152,3 +152,7 @@ All files have plain Cartesian XYZ positions in Å. In a pristine comparison use
 | spin_soc.device.job | Enable both; supply both calibrated frozen potentials | Same reference and numerical grids |
 
 See the [geometry atlas](../../docs/device-geometry.md) and [illustrated PDF](../../docs/PyYAeHMOP_v2_tutorial.pdf) for actual coordinate plots, transmission, conductance and I(V) for every case.
+
+## CIF alternatives for transport
+
+[CIF source files and conversion](../../docs/transport-cif.md#3-explicit-devices-cif-source-files-xyz-solver-input) explains the paired uniform inputs and how to convert the three-region CIF sources for all explicit device examples. The original XYZ examples remain unchanged.

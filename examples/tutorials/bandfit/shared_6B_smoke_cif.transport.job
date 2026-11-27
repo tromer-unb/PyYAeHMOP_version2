@@ -1,0 +1,23 @@
+# CIF has a 30 angstrom vacuum cell along b (y); transport along c (z).
+structure_format = cif
+structure = ../../transport/graphene.cif
+images = 5 1 4
+parameters = shared_6B.dat
+K = 3.164518461927991
+weighted_hij = true
+transport_axis = 2
+transverse_kpoints = 15 1
+energy_reference_eV = -8.938895660628994
+energy_min = -2
+energy_max = 2
+energy_points = 81
+eta = 0.00001
+cutoff = 11
+workers = 4
+calculations = transmission, conductance, iv
+temperature = 300
+bias_min = -2
+bias_max = 2
+bias_points = 81
+output = results/shared_6B_smoke_cif
+plots = true

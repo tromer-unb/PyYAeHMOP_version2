@@ -108,3 +108,7 @@ The two-terminal device solver is coherent, elastic EHT-NEGF with frozen
 Hamiltonians. It does not solve Poisson, open-system magnetic SCF or
 self-consistent finite-bias charge transfer. A physical prediction needs
 validated geometry, parameters, energy alignment and numerical convergence.
+
+## CIF alternatives for transport
+
+[CIF source files and conversion](transport-cif.md#3-explicit-devices-cif-source-files-xyz-solver-input) explains the paired uniform inputs and how to convert the three-region CIF sources for all explicit device examples. The original XYZ examples remain unchanged.

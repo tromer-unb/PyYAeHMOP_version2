@@ -1,0 +1,23 @@
+# CIF has a 30 angstrom vacuum cell along b (y); transport along c (z).
+structure_format = cif
+structure = ../../transport/graphene.cif
+images = 5 1 4
+parameters = pdz7_2B.dat
+K = 1.972724365643376
+weighted_hij = true
+transport_axis = 2
+transverse_kpoints = 301 1
+energy_reference_eV = -18.82583868248439
+energy_min = -2
+energy_max = 2
+energy_points = 401
+eta = 0.00001
+cutoff = 11
+workers = 4
+calculations = transmission, conductance, iv
+temperature = 300
+bias_min = -2
+bias_max = 2
+bias_points = 81
+output = results/pdz7_2B_cif
+plots = true

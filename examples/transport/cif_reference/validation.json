@@ -1,0 +1,126 @@
+{
+  "uniform": {
+    "pdz7_2B_smoke.transport": {
+      "transmission.dat": 2.971706214438541e-12,
+      "conductance.dat": 2.3025066011803097e-16,
+      "current_voltage.dat": 1.1519648082658485e-17
+    },
+    "pdz7_4B_smoke.transport": {
+      "transmission.dat": 2.8193003487331225e-12,
+      "conductance.dat": 2.1844132676741151e-16,
+      "current_voltage.dat": 1.0960606337470646e-17
+    },
+    "pdz7_6B_smoke.transport": {
+      "transmission.dat": 3.312156104939845e-12,
+      "conductance.dat": 2.566289601614244e-16,
+      "current_voltage.dat": 1.2837631348586176e-17
+    },
+    "shared_2B_smoke.transport": {
+      "transmission.dat": 2.3623047962217925e-12,
+      "conductance.dat": 1.8303365550628725e-16,
+      "current_voltage.dat": 9.158120225713495e-18
+    },
+    "shared_4B_smoke.transport": {
+      "transmission.dat": 2.5780766410576916e-12,
+      "conductance.dat": 1.9975239181919263e-16,
+      "current_voltage.dat": 9.991600645811727e-18
+    },
+    "shared_6B_smoke.transport": {
+      "transmission.dat": 2.354422212746954e-12,
+      "conductance.dat": 1.8242209771836965e-16,
+      "current_voltage.dat": 9.122544841928815e-18
+    }
+  },
+  "devices": {
+    "examples/devices/adsorbate.device.job": {
+      "max_coordinate_error_A": 0.0,
+      "transmission.dat": 0.0,
+      "conductance.dat": 0.0,
+      "current_voltage.dat": 0.0
+    },
+    "examples/devices/asymmetric.device.job": {
+      "max_coordinate_error_A": 0.0,
+      "transmission.dat": 0.0,
+      "conductance.dat": 0.0,
+      "current_voltage.dat": 0.0
+    },
+    "examples/devices/graphene_mos2.device.job": {
+      "max_coordinate_error_A": 0.0,
+      "transmission.dat": 0.0,
+      "conductance.dat": 0.0,
+      "current_voltage.dat": 0.0
+    },
+    "examples/devices/pristine.device.job": {
+      "max_coordinate_error_A": 0.0,
+      "transmission.dat": 0.0,
+      "conductance.dat": 0.0,
+      "current_voltage.dat": 0.0
+    },
+    "examples/devices/soc.device.job": {
+      "max_coordinate_error_A": 0.0,
+      "transmission.dat": 0.0,
+      "conductance.dat": 0.0,
+      "current_voltage.dat": 0.0
+    },
+    "examples/devices/spin.device.job": {
+      "max_coordinate_error_A": 0.0,
+      "transmission.dat": 0.0,
+      "conductance.dat": 0.0,
+      "current_voltage.dat": 0.0
+    },
+    "examples/devices/spin_soc.device.job": {
+      "max_coordinate_error_A": 0.0,
+      "transmission.dat": 0.0,
+      "conductance.dat": 0.0,
+      "current_voltage.dat": 0.0
+    },
+    "examples/devices/vacancy.device.job": {
+      "max_coordinate_error_A": 0.0,
+      "transmission.dat": 0.0,
+      "conductance.dat": 0.0,
+      "current_voltage.dat": 0.0
+    },
+    "examples/tutorials/graphene_mos2_graphene/run.device.job": {
+      "max_coordinate_error_A": 0.0,
+      "transmission.dat": 0.0,
+      "conductance.dat": 0.0,
+      "current_voltage.dat": 0.0
+    },
+    "examples/tutorials/graphene_x/run.device.job": {
+      "max_coordinate_error_A": 0.0,
+      "transmission.dat": 0.0,
+      "conductance.dat": 0.0,
+      "current_voltage.dat": 0.0
+    },
+    "examples/tutorials/nanoribbon/run.device.job": {
+      "max_coordinate_error_A": 0.0,
+      "transmission.dat": 0.0,
+      "conductance.dat": 0.0,
+      "current_voltage.dat": 0.0
+    },
+    "examples/tutorials/potential_barrier/run.device.job": {
+      "max_coordinate_error_A": 0.0,
+      "transmission.dat": 0.0,
+      "conductance.dat": 0.0,
+      "current_voltage.dat": 0.0
+    },
+    "examples/tutorials/spin_antiparallel/run.device.job": {
+      "max_coordinate_error_A": 0.0,
+      "transmission.dat": 0.0,
+      "conductance.dat": 0.0,
+      "current_voltage.dat": 0.0
+    },
+    "examples/tutorials/spin_parallel/run.device.job": {
+      "max_coordinate_error_A": 0.0,
+      "transmission.dat": 0.0,
+      "conductance.dat": 0.0,
+      "current_voltage.dat": 0.0
+    },
+    "examples/tutorials/wide_vacancy/run.device.job": {
+      "max_coordinate_error_A": 0.0,
+      "transmission.dat": 0.0,
+      "conductance.dat": 0.0,
+      "current_voltage.dat": 0.0
+    }
+  }
+}

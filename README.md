@@ -321,3 +321,7 @@ See the [graphene transport benchmark](examples/transport/README.md) for the sta
 ## Reproduce every example
 
 Start with the [complete runnable tutorial index](examples/tutorials/README.md): molecular and periodic inputs, spin/SOC, all six BandFit models, fifteen independent-device examples, PBS scripts and archived numerical references.
+
+## CIF alternatives for transport
+
+[CIF and XYZ transport examples](docs/transport-cif.md) explains the paired uniform inputs and how to convert the three-region CIF sources for all explicit device examples. The original XYZ examples remain unchanged.

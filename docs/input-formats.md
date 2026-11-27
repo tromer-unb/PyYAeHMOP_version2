@@ -257,3 +257,7 @@ The parameter strengths above are **illustrative** and not a universal Fe calibr
 | `output` | `results/case` | Results directory |
 
 For additional settings and validation details consult the [complete friendly-input manual](../pyaehmop/EASY_INPUT.md). The desktop GUI exposes the same parameters through fields, selectors and checkboxes.
+
+## CIF alternatives for transport
+
+[CIF and XYZ transport guide](transport-cif.md) explains the paired uniform inputs and how to convert the three-region CIF sources for all explicit device examples. The original XYZ examples remain unchanged.

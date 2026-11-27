@@ -1,0 +1,12 @@
+#!/bin/bash
+#PBS -N EHT_cif_examples
+#PBS -l select=1:ncpus=16:mpiprocs=1:ompthreads=16:mem=12gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLBACKEND=Agg
+PY=${PYTHON:-python}
+"$PY" examples/transport/prepare_cif_examples.py
+ulimit -c 0
+"$PY" -m examples.transport.validate_cif ${RESUME:+--resume}

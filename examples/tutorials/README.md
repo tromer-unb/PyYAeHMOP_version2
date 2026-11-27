@@ -158,3 +158,7 @@ The full-resolution rerun reproduced all six archived curves within 5e-11 absolu
 ## Rebuild the PDF
 
 The [PDF manual](../../docs/PyYAeHMOP_v2_tutorial.pdf) is generated from shipped inputs and archived numerical tables. With NumPy and Matplotlib installed, run python docs/build_tutorial.py from the checkout. No electronic or transport calculation is required for this documentation step.
+
+## CIF alternatives for transport
+
+[CIF and XYZ transport guide](../../docs/transport-cif.md) explains the paired uniform inputs and how to convert the three-region CIF sources for all explicit device examples. The original XYZ examples remain unchanged.
